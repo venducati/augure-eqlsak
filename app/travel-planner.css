@@ -1,0 +1,32 @@
+/* Travel across Norrath — route planner panel inside Maps & Routes */
+.travel-planner{padding:26px;border:1px solid #aa9c72;border-radius:14px;background:linear-gradient(125deg,#243c44,#1a2c33);margin:26px 0}
+.travel-head{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.travel-head>svg:first-child{width:34px;height:34px;color:#efd28b;flex-shrink:0}
+.travel-head h3{margin:0}
+.travel-head p{margin:2px 0 0;color:#c9dad8}
+.travel-pickers{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:14px}
+.travel-field label{display:block;font-weight:500;margin-bottom:8px;color:#ffe0a1}
+.travel-flip{align-self:center}
+.travel-picker .ba-zone-input-group{display:flex;width:100%}
+.travel-options{display:flex;flex-wrap:wrap;gap:18px;padding:14px 18px;border:1px solid #68888c;border-radius:8px;margin:18px 0}
+.travel-options legend{padding:0 6px;color:#ffe0a1;font-weight:600}
+.travel-options label{display:flex;flex-direction:row;align-items:center;gap:8px;font-weight:400}
+.travel-options small{color:#b8cbca}
+.travel-note{color:#ffd9a0;margin:12px 0}
+.travel-steps{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+.travel-step{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;padding:16px 18px;border:1px solid #7c8f8d;border-left-width:5px;border-radius:10px;background:#20343e}
+.travel-step-body{min-width:0}
+.travel-step-body strong{display:block;font-size:17px;color:#ffe0a1}
+.travel-step-body strong small{color:#bcd3d1;font-weight:400;margin-left:8px}
+.travel-step-body p{margin:6px 0 0;color:#dbe7e4;font-size:14.5px}
+.travel-step-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#14252c;color:#ffe0a1;border:1px solid #7c8f8d}
+.travel-step output{color:#b8e6d7;font-variant-numeric:tabular-nums;white-space:nowrap}
+.travel-mode-walk{border-left-color:#9fb37a}
+.travel-mode-boat{border-left-color:#6fa8dc}
+.travel-mode-translocator{border-left-color:#b48ead}
+.travel-mode-port{border-left-color:#e2bc6f}
+.travel-mode-plane{border-left-color:#d16060}
+.travel-warning{color:#ffc9c9}
+.travel-fare small{color:#cfd8d8}
+.travel-summary{margin:16px 0 0;padding:12px 16px;border-radius:8px;background:#14282e;border:1px solid #58777c;color:#c9e8dd}
+@media(max-width:700px){.travel-pickers{grid-template-columns:1fr}.travel-flip{justify-self:center}.travel-planner{padding:18px}}

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.8.0 — 2026-11-21
+
+- **Travel across Norrath.** A point-to-point world route planner lives inside **Maps & Routes**: choose From and To zones and BA lists every hop (walk, boat, dock translocator, druid/wizard port, planar portal) with minutes and an **Open map of …** button that loads each step's local map.
+- Travel graph ships as `data/norrath-travel.json`: zone-to-zone links, the Qeynos⇄Erudin and Freeport⇄Butcherblock boat legs with measured durations, six dock translocator NPCs, druid rings and wizard gates, and three end-game planar orb crossings. EQL era only — Kunark and Velious are deliberately absent.
+- Options mirror the EQLWiki travel guide: tick what the group can use (translocators / boats / one druid or wizard flex port / planar portals). Ports off and shortcuts unticked reproduces "the old way" (walking the Karanas).
+- Safety and honesty rules: every edge is validated at load against the zone catalog and bundled EQL spell catalog (unvalidated edges never enter the planner), generic city names resolve to their hub zones, plane steps always carry a danger warning, and out-of-era or unknown zones simply produce no plan.
+- Data provenance recorded in the file header (EQLWiki Travel Guide read 2026-11-21, Norrath Route Atlas zone links cross-checked against client maps). Community reference — EQL compatibility **not verified** in game.
+- New suite `scripts/test-travel-routes.mjs` (12 tests) joined `npm test`.
+
 ## 1.7.0 — 2026-11-21 (Augure take-over)
 
 - Removed every OpenAI/ChatGPT Sites and Cloudflare-specific dependency (`@openai/sites-vite-plugin`, `wrangler`, `@cloudflare/vite-plugin`, `@cloudflare/workers-types`, `vinext`, `@vitejs/plugin-rsc`, `react-server-dom-webpack`). The app was already fully offline; only the hosted companion used those tools.

@@ -22,6 +22,17 @@ Click the map, press Enter while it is focused, or choose **Expand map**. A drag
 
 The map is redrawn at the new size rather than stretching a screenshot. Wireframe and 3D wireframe views use the same local map lines, labels and recorded heights; they change only how the data is drawn. All map tools continue to work offline.
 
+## Travel across Norrath
+
+**Maps & Routes → Travel across Norrath** plans a point-to-point trip anywhere in the catalog: choose **From** (where you stand) and **To** (where you want to be). BA lists each hop with its mode, minutes and a click-through **Open map of …** button that loads that zone’s local map.
+
+- Tick what your group can actually use: **dock translocators**, **boats**, a **druid or wizard port** (a ring or gate lands inside its zone from anywhere, so it can be the whole trip), or **planar portals** (end-game orbs to Sky, Hate and Fear — off by default and every step carries a warning).
+- Generic city names (Qeynos, Freeport, Neriak, Kaladim, Felwithe) resolve to the practical hub zone used for route lines.
+- The planner chooses the cheapest-minute route over the graph, so the “old way” (for example, walking the Karanas) only appears when you untick the shortcuts.
+- Distances are planning estimates, not timers: a zone crossing is counted as 4 minutes, a port or translocator hop as 2, and boat legs use the EQLWiki-measured one-way halves of each round trip. Boats run on a schedule — allow up to 30 minutes waiting at a dock.
+- Kunark and Velious zones are out of era for EQL and have no routes. Out-of-era zone names simply produce no plan.
+- The route graph (zone links, boats, translocator NPCs, port spell names) is validated at load against the shipped zone and spell catalogs; malformed edges never enter the planner. Sources are listed in `data/norrath-travel.json`. EQL compatibility is community-reference, **not verified** — layouts and portals may differ in game.
+
 ## Get a newer map
 
 Open **Map downloads & manual files** for [Brewall](https://www.eqmaps.info/eq-map-files/) and [Good's Maps](https://www.redguides.com/community/resources/goods-everquest-map-pack.303/). Download and unzip the pack yourself, following its creator's guide. After updating the files, choose **Folder options → Refresh map list**. BA reads the current files and notices new layers. A failed read leaves the previous map on screen with an error message. Individual-file import is still available in the collapsed manual section. The map pages also appear in optional source checks; a page change does not install maps or change class scores.

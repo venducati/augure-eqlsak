@@ -7,10 +7,15 @@ import {zoneGuideURL} from '../lib/zone-navigation';
 import MapFolderPicker from './MapFolderPicker';
 import {mapLocationName,matchMapLocation,type MapContents} from '../lib/map-library';
 import ExpandedMap from './ExpandedMap';
+import TravelPlanner from './TravelPlanner';
 import {clampMapPitch,clampMapZoom,defaultMap3dCamera,projectMap3d,wireframeMapColors,zoomMapAt} from '../lib/map-view';
 import '../app/map-library.css';
 
 export default function MapLibrary({zone,active,requestKey=0}:{zone:string;active:boolean;requestKey?:number}) {
+  const [routeZone,setRouteZone]=useState('');
+  const effectiveZone=routeZone||zone;
+  const parentRequest=useRef({zone,requestKey});
+  if(parentRequest.current.zone!==zone||parentRequest.current.requestKey!==requestKey){parentRequest.current={zone,requestKey};if(routeZone)setRouteZone('');}
   const [layers,setLayers]=useState<MapLayer[]>([]),[provider,setProvider]=useState('brewall'),[loadedProvider,setLoadedProvider]=useState('');
   const [visible,setVisible]=useState<number[]>([0,1,2,3]),[query,setQuery]=useState(''),[showLabels,setShowLabels]=useState(true),[wireframe,setWireframe]=useState(false),[threeD,setThreeD]=useState(false);
   const [floor,setFloor]=useState(''),[band,setBand]=useState('30'),[location,setLocation]=useState(''),[pin,setPin]=useState<MapPoint|null>(null);
@@ -120,12 +125,13 @@ export default function MapLibrary({zone,active,requestKey=0}:{zone:string;activ
     onKeyDown={e=>{const d:Record<string,[number,number]>={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(d[e.key]){e.preventDefault();if(threeD){if(e.altKey&&d[e.key][1])setZOffset(value=>value-d[e.key][1]*threeDSpan*.05);else if(e.shiftKey)setCenter(value=>({x:value.x+d[e.key][0]*threeDSpan*.05,y:value.y-d[e.key][1]*threeDSpan*.05}));else if(d[e.key][0])setYaw(value=>value+d[e.key][0]*.12);else setPitch(value=>clampMapPitch(value-d[e.key][1]*.12));}else pan(...d[e.key]);}else if(e.key==='+'||e.key==='='){e.preventDefault();setZoom(v=>clampMapZoom(v*1.4));}else if(e.key==='-'){e.preventDefault();setZoom(v=>clampMapZoom(v/1.4));}else if(e.key.toLowerCase()==='f'){e.preventDefault();reset();}else if(!full&&(e.key==='Enter'||e.key===' ')){e.preventDefault();openExpanded();}}}/>;}
   return <section className="map-library" aria-label="Maps and routes">
     <header className="map-heading"><Map aria-hidden="true"/><div><h2>Maps &amp; Routes</h2><p>Choose a location. Its map and layers open together.</p></div></header>
-    <MapFolderPicker zone={zone} active={active} requestKey={requestKey} loadedStem={layers[0]?.stem||''} busy={busy} onBusy={setBusy} onLoad={applyFiles}/>
+    <MapFolderPicker zone={effectiveZone} active={active} requestKey={requestKey} loadedStem={layers[0]?.stem||''} busy={busy} onBusy={setBusy} onLoad={applyFiles}/>
     <p role="status" className="map-message">{message}</p>
-    <p><strong>Planning zone:</strong> {zone||'Choose a current zone in Build Advisor.'} {zone&&zoneGuideURL(zone)&&<a href={zoneGuideURL(zone)} target="_blank" rel="noopener noreferrer">Open EQLSaK zone guide <ExternalLink aria-hidden="true"/></a>}</p>
+    <p><strong>Planning zone:</strong> {effectiveZone||'Choose a current zone in Build Advisor.'} {effectiveZone&&zoneGuideURL(effectiveZone)&&<a href={zoneGuideURL(effectiveZone)} target="_blank" rel="noopener noreferrer">Open EQLSaK zone guide <ExternalLink aria-hidden="true"/></a>}{routeZone&&<button type="button" className="ba-zone-guide" onClick={()=>setRouteZone('')}>Back to advisor zone</button>}</p>
+    <TravelPlanner currentZone={effectiveZone} onOpenZone={setRouteZone}/>
     {layers.length>0?<>
       <div className="map-loaded"><strong>{mapLocationName(layers[0].stem)}</strong><span>{credit?.name||'Your chosen map'} · {layers[0].stem}</span><small>EverQuest community map · EQL layout not verified. {credit?'By '+credit.creator+'.':'Check the creator’s terms before sharing.'}</small></div>
-      {zone&&!matchMapLocation([{id:'loaded',stem:layers[0].stem,fileCount:layers.length}],zone)&&<p className="map-reference-note">The map shown is <strong>{mapLocationName(layers[0].stem)}</strong>. Your planning zone is {zone}. Choose another location above if needed.</p>}
+      {effectiveZone&&!matchMapLocation([{id:'loaded',stem:layers[0].stem,fileCount:layers.length}],effectiveZone)&&<p className="map-reference-note">The map shown is <strong>{mapLocationName(layers[0].stem)}</strong>. Your planning zone is {effectiveZone}. Choose another location above if needed.</p>}
       {layerControls()}
       {mapFilters()}
       <div className="map-tools"><button onClick={()=>setZoom(v=>Math.min(32,v*1.4))} disabled={zoom>=32}><ZoomIn/> Zoom in</button><button onClick={()=>setZoom(v=>Math.max(.25,v/1.4))} disabled={zoom<=.25}><ZoomOut/> Zoom out</button><button onClick={reset}><LocateFixed/> Fit map</button>{wireframeControl()}{threeDControl()}<label><input type="checkbox" checked={showLabels} onChange={e=>setShowLabels(e.target.checked)}/> Show label text</label></div>

@@ -1,6 +1,6 @@
 {
   "name": "eqlsak-build-advisor",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "private": true,
   "license": "MIT",
   "engines": {
@@ -10,7 +10,7 @@
     "build": "node scripts/build-offline-advisor.mjs && node scripts/prepare-advisor-desktop.mjs",
     "build:site": "node site/build.mjs",
     "package:win": "npm run build && npm --prefix desktop run package:win",
-    "test": "node scripts/test-build-advisor.mjs && node scripts/test-advisor-wording.mjs && node scripts/test-combat-meter.mjs && node scripts/test-combat-visuals.mjs && node scripts/test-encounter-journal.mjs && node scripts/test-zone-factions.mjs && node scripts/test-party-advisor.mjs && node scripts/test-advisor-render.mjs && node scripts/test-log-discovery.mjs && node scripts/test-advisor-audio.mjs && node scripts/test-guild-roster.mjs && node scripts/test-combat-overlay.mjs && node scripts/test-eq-map.mjs && node scripts/test-map-library.mjs && node scripts/test-map-view.mjs && node scripts/test-spell-hotbar.mjs",
+    "test": "node scripts/test-build-advisor.mjs && node scripts/test-advisor-wording.mjs && node scripts/test-combat-meter.mjs && node scripts/test-combat-visuals.mjs && node scripts/test-encounter-journal.mjs && node scripts/test-zone-factions.mjs && node scripts/test-party-advisor.mjs && node scripts/test-advisor-render.mjs && node scripts/test-log-discovery.mjs && node scripts/test-advisor-audio.mjs && node scripts/test-guild-roster.mjs && node scripts/test-combat-overlay.mjs && node scripts/test-eq-map.mjs && node scripts/test-map-library.mjs && node scripts/test-map-view.mjs && node scripts/test-spell-hotbar.mjs && node scripts/test-travel-routes.mjs",
     "test:desktop": "npm --prefix desktop test",
     "test:ui": "node scripts/run-electron-ui-test.mjs test-desktop-ui.cjs",
     "typecheck": "tsc --noEmit",
