@@ -1,0 +1,4 @@
+{
+  "origin": "",
+  "note": "Set origin to your hosted companion site (for example https://yourname.github.io/eqlsak-site) to enable the 'Open zone guide' link in the advisor. Leave empty to hide the link; all tools work offline without it."
+}
