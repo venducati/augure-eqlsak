@@ -74,5 +74,8 @@
       "installerIcon": "assets/advisor.ico",
       "uninstallerIcon": "assets/advisor.ico"
     }
+  },
+  "allowScripts": {
+    "electron@44.3.0": true
   }
 }
