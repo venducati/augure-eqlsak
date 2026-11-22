@@ -1391,8 +1391,8 @@ export default function Home() {
         </div>
       </header>
       <output className="prerelease">
-        <strong>PRIVATE PRE-RELEASE</strong>
-        <span>Unofficial community companion · Verified EQL evidence outranks legacy data</span>
+        <strong>WORK IN PROGRESS</strong>
+        <span>Live during development · data, layout, and features may change without notice · unofficial community companion, not affiliated with Daybreak Game Company · verified EQL evidence outranks legacy data</span>
       </output>
       <section className="shell">
         <aside className="rail">
