@@ -4,7 +4,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   readCatalog,
+  readQuests,
   joinMeasured,
+  attachQuests,
   filterCatalog,
   measuredGaps,
 } from '../lib/item-catalog.ts';
@@ -151,3 +153,57 @@ test('filterCatalog ranks measured first and honours max', () => {
   const out = filterCatalog(items, { ...noFilters, max: 2 });
   assert.equal(out[0].name, 'Adamantite Band');
 });
+
+// ---------- quest sidecar ----------
+const questFixture = {
+  quests: {
+    'Call of Flame Quest': {
+      name: 'Call of Flame', giver: 'Goda Coachman', givers: ['Goda Coachman'],
+      startZone: 'South Qeynos', level: '50', levelKind: 'min', classes: ['Warrior'],
+      relatedZones: [], rewards: ['Viper'], kind: 'epic',
+    },
+    'Sword. Do you know?': {
+      name: 'Sword. Do you know?', giver: null, givers: [], startZone: '', level: null,
+      levelKind: null, classes: [], relatedZones: [], rewards: ['Enchanted Fine Steel Bastard Sword'], kind: 'regular',
+    },
+  },
+};
+
+test('readQuests parses records and survives junk payloads', () => {
+  assert.equal(readQuests(null).size, 0);
+  assert.equal(readQuests({ quests: [] }).size, 0);
+  const map = readQuests(questFixture);
+  assert.equal(map.size, 2);
+  const epic = map.get('Call of Flame Quest');
+  assert.equal(epic.kind, 'epic');
+  assert.equal(epic.giver, 'Goda Coachman');
+  assert.equal(map.get('Sword. Do you know?').giver, null);
+  assert.equal(map.get('Sword. Do you know?').kind, 'regular'); // unknown kinds clamp
+});
+
+test('attachQuests links items by referenced quest name and sorts epic first', () => {
+  const items = readCatalog({
+    items: {
+      Z: { name: 'Z', slots: [], classes: [], allClasses: true, stats: {}, flags: [], drops: [], quests: ['Sword. Do you know?', 'Call of Flame Quest', 'Missing Quest'], tags: [] },
+    },
+  });
+  attachQuests(items, readQuests(questFixture));
+  assert.deepEqual(items[0].questDetails.map((q) => q.kind), ['epic', 'regular']);
+});
+
+test('filterCatalog epicOnly gate needs attached details', () => {
+  const items = readCatalog(fixture);
+  // Without quests attached, epicOnly filters everything out (fails closed).
+  assert.equal(filterCatalog(items, { ...noFilters, epicOnly: true }).length, 0);
+  attachQuests(items, readQuests(questFixture));
+  const epic = filterCatalog(items, { ...noFilters, epicOnly: true });
+  assert.deepEqual(epic.map((i) => i.name), ['Adamantite Band']);
+});
+
+test('filterCatalog text search reaches quest names and givers after attach', () => {
+  const items = readCatalog(fixture);
+  attachQuests(items, readQuests(questFixture));
+  assert.equal(filterCatalog(items, { ...noFilters, text: 'goda coachman' }).length, 1);
+  assert.equal(filterCatalog(items, { ...noFilters, text: 'call of flame' }).length, 1);
+});
+

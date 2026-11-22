@@ -1,18 +1,23 @@
 // Faceted loot explorer for the Loot tab: filter the EQLWiki item catalog by
-// class, slot, and desired +stats, joined with measured combat-log evidence.
+// class, slot, desired +stats, and quest linkage — quest rows carry giver,
+// start zone, level and Epic/Regular kind from the synced quest pages.
 // Deterministic and offline: every facet narrows shipped data; no query ever
 // leaves the browser. The catalog is a multi-MB static asset fetched once at
 // runtime (same /data/ path the service worker can cache) — never bundled.
 import { useEffect, useMemo, useState } from 'react';
 import {
   readCatalog,
+  readQuests,
   joinMeasured,
+  attachQuests,
   filterCatalog,
   CLASS_LABELS,
   type CatalogItem,
+  type QuestDetail,
 } from '@/lib/item-catalog';
 
 const CATALOG_URL = '/data/eqlwiki-items.json';
+const QUESTS_URL = '/data/eqlwiki-quests.json';
 
 const CODE_TO_LABEL = CLASS_LABELS;
 
@@ -42,8 +47,44 @@ function Chip({ active, label, onClick, title }: { active: boolean; label: strin
   );
 }
 
+const KIND_LABEL: Record<QuestDetail['kind'], string> = { epic: 'Epic Quest', heroic: 'Heroic Quest', regular: 'Regular Quest' };
+
+function questMetaLine(q: QuestDetail): string {
+  const bits: string[] = [];
+  if (q.giver) bits.push(`Giver: ${q.giver}${q.startZone ? ` (${q.startZone})` : ''}`);
+  else if (q.startZone) bits.push(`Starts in ${q.startZone}`);
+  if (q.level) bits.push(`${q.levelKind === 'min' ? 'Min level' : 'Rec. level'} ${q.level}`);
+  if (q.classes.length && !/^(all)$/i.test(q.classes.join(''))) bits.push(q.classes.slice(0, 4).join(', ') + (q.classes.length > 4 ? '…' : ''));
+  return bits.join(' · ') || 'Details sparse on the wiki page';
+}
+
+function QuestRow({ quest, onOpenItem }: { quest: QuestDetail; onOpenItem: (name: string) => void }) {
+  return (
+    <div className={`fqcard fkind-${quest.kind}`}>
+      <header>
+        <b>{quest.name}</b>
+        <i className={`fkindspec ${quest.kind}`}>{KIND_LABEL[quest.kind]}</i>
+      </header>
+      <p>{questMetaLine(quest)}</p>
+      {quest.givers.length > 1 && <p className="fqmore">Also starts from: {quest.givers.slice(1, 4).join(', ')}</p>}
+      {quest.rewards.length > 0 && (
+        <p className="fqrewards">
+          Rewards:{' '}
+          {quest.rewards.map((r, idx) => (
+            <span key={r}>
+              {idx > 0 ? ', ' : ''}
+              <button type="button" onClick={() => onOpenItem(r)} title={`Look up ${r} in the measured evidence search`}>{r}</button>
+            </span>
+          ))}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function LootFacets({ lootIndex, onOpenItem }: { lootIndex: { name: string; sightings: { mob: string; seen: number }[] }[]; onOpenItem: (name: string) => void }) {
   const [rawCatalog, setRawCatalog] = useState<CatalogItem[] | null>(null);
+  const [questMap, setQuestMap] = useState<ReturnType<typeof readQuests> | null>(null);
   const [catalogFailed, setCatalogFailed] = useState(false);
 
   useEffect(() => {
@@ -65,28 +106,44 @@ export function LootFacets({ lootIndex, onOpenItem }: { lootIndex: { name: strin
     };
   }, []);
 
+  // Non-fatal: without the quest sidecar the finder still works, minus detail
+  // rows, epic classification, and the quest half of text search.
+  useEffect(() => {
+    let cancelled = false;
+    fetch(QUESTS_URL)
+      .then((response) => (response.ok ? response.json() : Promise.reject(new Error(`Quest request failed (${response.status})`))))
+      .then((payload: unknown) => { if (!cancelled) setQuestMap(readQuests(payload)); })
+      .catch(() => { /* degrades quietly */ });
+    return () => { cancelled = true; };
+  }, []);
+
   const catalog = useMemo(() => {
     if (!rawCatalog) return [];
     const items = [...rawCatalog];
     joinMeasured(items, lootIndex);
+    if (questMap) attachQuests(items, questMap);
     return items;
-  }, [rawCatalog, lootIndex]);
+  }, [rawCatalog, lootIndex, questMap]);
 
   const [classes, setClasses] = useState<string[]>([]);
   const [slots, setSlots] = useState<string[]>([]);
   const [wants, setWants] = useState<string[]>([]);
   const [measuredOnly, setMeasuredOnly] = useState(false);
   const [questFlagged, setQuestFlagged] = useState(false);
+  const [epicOnly, setEpicOnly] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const [text, setText] = useState('');
   const [limit, setLimit] = useState(48);
 
   const toggle = (list: string[], setter: (v: string[]) => void, value: string) =>
     setter(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
 
-  const activeCount = classes.length + slots.length + wants.length + (measuredOnly ? 1 : 0) + (questFlagged ? 1 : 0) + (text.trim() ? 1 : 0);
+  const clearAll = () => { setClasses([]); setSlots([]); setWants([]); setMeasuredOnly(false); setQuestFlagged(false); setEpicOnly(false); setText(''); setLimit(48); setExpanded(null); };
+
+  const activeCount = classes.length + slots.length + wants.length + (measuredOnly ? 1 : 0) + (questFlagged ? 1 : 0) + (epicOnly ? 1 : 0) + (text.trim() ? 1 : 0);
   const results = useMemo(
-    () => filterCatalog(catalog, { text, classes, slots, wants, measuredOnly, questFlagged, max: limit }),
-    [catalog, text, classes, slots, wants, measuredOnly, questFlagged, limit],
+    () => filterCatalog(catalog, { text, classes, slots, wants, measuredOnly, questFlagged, epicOnly, max: limit }),
+    [catalog, text, classes, slots, wants, measuredOnly, questFlagged, epicOnly, limit],
   );
   const anyFilter = activeCount > 0;
   const shown = anyFilter ? results : [];
@@ -104,6 +161,11 @@ export function LootFacets({ lootIndex, onOpenItem }: { lootIndex: { name: strin
     return parts.slice(0, 4).join(' · ');
   }
 
+  const bestKind = (item: CatalogItem): QuestDetail['kind'] | null => {
+    if (!item.questDetails.length) return null;
+    return item.questDetails[0].kind;
+  };
+
   return (
     <section className="lootfacets" aria-label="Faceted item finder">
       <header>
@@ -115,7 +177,7 @@ export function LootFacets({ lootIndex, onOpenItem }: { lootIndex: { name: strin
           {catalogFailed
             ? 'catalog unavailable offline'
             : catalog.length
-              ? `${catalog.length.toLocaleString()} catalogued items`
+              ? `${catalog.length.toLocaleString()} catalogued items${questMap ? ` · ${questMap.size.toLocaleString()} quests mapped` : ''}`
               : 'loading full catalog…'}
         </span>
       </header>
@@ -140,16 +202,13 @@ export function LootFacets({ lootIndex, onOpenItem }: { lootIndex: { name: strin
           ))}</div>
         </div>
         <div className="facetgroup" role="group" aria-label="Evidence and flag filters">
-          <b>Evidence</b>
+          <b>Evidence & quests</b>
           <div>
             <Chip label="Measured drops only" active={measuredOnly} onClick={() => setMeasuredOnly((v) => !v)} title="Only items witnessed dropping in combat logs (EQL Source)" />
             <Chip label="Quest-connected" active={questFlagged} onClick={() => setQuestFlagged((v) => !v)} title="Marked as quest items or named in quest reward lists" />
-            <input type="search" value={text} onChange={(e) => setText(e.target.value)} placeholder="Contains… (name, mob, zone)" aria-label="Text filter inside the facet results" />
-            {(anyFilter) && (
-              <button type="button" className="facetclear" onClick={() => { setClasses([]); setSlots([]); setWants([]); setMeasuredOnly(false); setQuestFlagged(false); setText(''); setLimit(48); }}>
-                Clear facets
-              </button>
-            )}
+            <Chip label="Epic/heroic only" active={epicOnly} onClick={() => questMap && setEpicOnly((v) => !v)} title={questMap ? 'Items tied to a class epic or heroic quest (classified by EQLWiki)' : 'Available once the quest mapping loads'} />
+            <input type="search" value={text} onChange={(e) => setText(e.target.value)} placeholder="Contains… (name, mob, zone, quest, giver)" aria-label="Text filter inside the facet results" />
+            {anyFilter && <button type="button" className="facetclear" onClick={clearAll}>Clear facets</button>}
           </div>
         </div>
       </div>
@@ -157,30 +216,52 @@ export function LootFacets({ lootIndex, onOpenItem }: { lootIndex: { name: strin
       {anyFilter && (
         <p className="facetsummary" aria-live="polite">
           {results.length.toLocaleString()} item{results.length === 1 ? '' : 's'} match
-          {results.length > limit ? ` (showing ${limit})` : ''} — classes fall back to ALL-class items automatically.
+          {results.length > limit ? ` (showing ${limit})` : ''} — tap a card to see its quest giver, zone and quest type.
         </p>
       )}
 
       {!anyFilter && (
-        <p className="facethint">Pick a class, slot, or a couple of +stats to narrow the catalog. Green badges mark items with measured combat-log drops; everything else is wiki-asserted, never guessed.</p>
+        <p className="facethint">Pick a class, slot, or a couple of +stats to narrow the catalog. Green badges mark items with measured combat-log drops; gold badges mark epic-quest rewards. Quest kind, giver and zone come from EQLWiki and are labelled as wiki-asserted, never guessed.</p>
       )}
 
       {anyFilter && (
         <div className="facetgrid">
-          {shown.slice(0, limit).map((item) => (
-            <button type="button" key={item.name} onClick={() => onOpenItem(item.name)} title={`Open ${item.name} in the measured evidence search`}>
-              <span>
-                <b>{item.name}</b>
-                <small>{item.slots.slice(0, 2).join('/') || 'Worn/Other'}{item.skill ? ` · ${item.skill}` : ''}{item.drops[0] ? ` · ${item.drops[0].zone}` : ''}</small>
-                <em>{statSummary(item) || item.notes.slice(0, 48) || '—'}</em>
-              </span>
-              <span className="facetbadges">
-                {item.measured && <i className="fmeasured">{item.observations.toLocaleString()} obs</i>}
-                {item.flags.includes('NoRent') && !item.flags.includes('Faded') && <i className="fnorent">No rent</i>}
-                {(item.flags.includes('Quest') || item.quests.length > 0) && <i className="fquest">Quest</i>}
-              </span>
-            </button>
-          ))}
+          {shown.slice(0, limit).map((item) => {
+            const kind = bestKind(item);
+            const isOpen = expanded === item.name;
+            return (
+              <div key={item.name} className="fcard">
+                <button
+                  type="button"
+                  className="fcardmain"
+                  onClick={() => (item.questDetails.length ? setExpanded(isOpen ? null : item.name) : onOpenItem(item.name))}
+                  title={item.questDetails.length ? 'Show quest details' : `Open ${item.name} in the measured evidence search`}
+                >
+                  <span>
+                    <b>{item.name}</b>
+                    <small>{item.slots.slice(0, 2).join('/') || 'Worn/Other'}{item.skill ? ` · ${item.skill}` : ''}{item.drops[0] ? ` · ${item.drops[0].zone}` : ''}</small>
+                    <em>{statSummary(item) || item.notes.slice(0, 48) || '—'}</em>
+                  </span>
+                  <span className="facetbadges">
+                    {item.measured && <i className="fmeasured">{item.observations.toLocaleString()} obs</i>}
+                    {item.flags.includes('NoRent') && !item.flags.includes('Faded') && <i className="fnorent">No rent</i>}
+                    {kind && <i className={`fquest ${kind}`}>{kind === 'epic' ? 'Epic' : kind === 'heroic' ? 'Heroic' : 'Quest'}</i>}
+                    {(item.flags.includes('Quest') || item.quests.length > 0) && !kind && <i className="fquest unresolved">Quest?</i>}
+                    {item.questDetails.length > 0 && <i className="fexpand">{isOpen ? '▾' : '▸'}</i>}
+                  </span>
+                </button>
+                {isOpen && (
+                  <div className="fqbody">
+                    {item.questDetails.map((q) => <QuestRow key={q.name} quest={q} onOpenItem={onOpenItem} />)}
+                    {item.questDetails.length === 0 && item.quests.length > 0 && (
+                      <p className="fqmore">Linked to {item.quests.length} quest name(s) the wiki has no page for: {item.quests.slice(0, 3).join(', ')}{item.quests.length > 3 ? '…' : ''}</p>
+                    )}
+                    <button type="button" className="fopcode" onClick={() => onOpenItem(item.name)}>Open {item.name} in measured evidence search →</button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
           {results.length > limit && (
             <button type="button" className="facetmore" onClick={() => setLimit((n) => n + 48)}>Show 48 more ({(results.length - limit).toLocaleString()} left)</button>
           )}

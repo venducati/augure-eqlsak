@@ -26,6 +26,7 @@ export type CatalogItem = {
   measured: boolean; // observed in combat-log sightings
   observations: number; // summed sighting count when measured
   measuredMobs: string[];
+  questDetails: QuestDetail[]; // filled by attachQuests(); [] until then
 };
 
 export type FacetFilters = {
@@ -35,6 +36,7 @@ export type FacetFilters = {
   wants: string[]; // stat keys, e.g. ['STR','AGI','STA']
   measuredOnly: boolean;
   questFlagged: boolean;
+  epicOnly?: boolean; // restrict to items tied to an epic/heroic quest (needs questDetails attached)
   max: number;
 };
 
@@ -48,6 +50,23 @@ export const CLASS_LABELS: Record<string, string> = {
 
 export const SLOT_OPTIONS = ['PRIMARY', 'SECONDARY', 'RANGE', 'AMMO', 'HEAD', 'FACE', 'CHEST', 'LEGS', 'ARMS', 'HANDS', 'FEET', 'WAIST', 'WRIST', 'FOREARM', 'NECK', 'EAR1', 'EAR2', 'FINGER1', 'FINGER2', 'BACK', 'CHEST(PLATEABLE)', 'SHIRT', 'LEG(PLATEABLE)', 'ANKLE', 'BODY'];
 export const STAT_OPTIONS = ['STR', 'STA', 'AGI', 'DEX', 'WIS', 'INT', 'CHA', 'HP', 'MANA', 'HASTE', 'MSV', 'SR', 'MR', 'CR', 'DR', 'TR', 'PR'];
+
+// Quest metadata synced from EQLWiki quest pages (see sync-eqlwiki-quests.mjs).
+// Kind classification is wiki-asserted (Epic Quests Era category / {{Epics Era}}
+// marker); giver + start zone come from the wiki's questTopTable boxes.
+export type QuestKind = 'epic' | 'heroic' | 'regular';
+export type QuestDetail = {
+  name: string;
+  giver: string | null;
+  givers: string[];
+  startZone: string | null;
+  level: string | null;
+  levelKind: string | null;
+  classes: string[];
+  relatedZones: string[];
+  rewards: string[];
+  kind: QuestKind;
+};
 
 const normKey = (name: string) =>
   name.toLowerCase().replace(/[`´′']/g, "'").replace(/\s*\+\d+$/, '').replace(/\s+/g, ' ').trim();
@@ -108,10 +127,55 @@ export function readCatalog(payload: unknown): CatalogItem[] {
       measured: false,
       observations: 0,
       measuredMobs: [],
+      questDetails: [],
     });
   }
   return out;
 }
+
+// Parse the synced quest payload into a lookup keyed by referenced quest name.
+export function readQuests(payload: unknown): Map<string, QuestDetail> {
+  const raw = (payload as { quests?: Record<string, unknown> })?.quests;
+  const out = new Map<string, QuestDetail>();
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return out;
+  for (const [key, entry] of Object.entries(raw)) {
+    if (!entry || typeof entry !== 'object') continue;
+    const v = entry as Record<string, unknown>;
+    const name = asString(v.name) || key;
+    const kindRaw = asString(v.kind).toLowerCase();
+    const kind: QuestKind = kindRaw === 'epic' || kindRaw === 'heroic' ? (kindRaw as QuestKind) : 'regular';
+    out.set(key, {
+      name,
+      giver: asString(v.giver) || null,
+      givers: asStringArray(v.givers).slice(0, 6),
+      startZone: asString(v.startZone) || null,
+      level: asString(v.level) || null,
+      levelKind: asString(v.levelKind) || null,
+      classes: asStringArray(v.classes).slice(0, 16),
+      relatedZones: asStringArray(v.relatedZones).slice(0, 10),
+      rewards: asStringArray(v.rewards).slice(0, 12),
+      kind,
+    });
+  }
+  return out;
+}
+
+// Attach resolved quest metadata to items by their referenced quest names.
+export function attachQuests(catalog: CatalogItem[], quests: Map<string, QuestDetail>): CatalogItem[] {
+  for (const item of catalog) {
+    if (!item.quests.length) continue;
+    const found: QuestDetail[] = [];
+    const seen = new Set<string>();
+    for (const qn of item.quests) {
+      const hit = quests.get(qn);
+      if (hit && !seen.has(hit.name)) { found.push(hit); seen.add(hit.name); }
+    }
+    found.sort((a, b) => rankKind(b.kind) - rankKind(a.kind) || a.name.localeCompare(b.name));
+    item.questDetails = found;
+  }
+  return catalog;
+}
+const rankKind = (k: QuestKind) => (k === 'epic' ? 2 : k === 'heroic' ? 1 : 0);
 
 // Overlay measured-drop evidence (from the loot index) onto catalog items.
 export function joinMeasured(catalog: CatalogItem[], measured: { name: string; sightings: { mob: string; seen: number }[] }[]): CatalogItem[] {
@@ -138,13 +202,17 @@ export function filterCatalog(catalog: CatalogItem[], f: FacetFilters): CatalogI
   const matched = catalog.filter((item) => {
     if (f.measuredOnly && !item.measured) return false;
     if (f.questFlagged && !(item.flags.includes('Quest') || item.quests.length > 0)) return false;
+    if (f.epicOnly && !item.questDetails.some((q) => q.kind === 'epic' || q.kind === 'heroic')) return false;
     if (f.classes.length) {
       if (!item.allClasses && !f.classes.some((c) => item.classes.includes(c))) return false;
     }
     if (f.slots.length && !f.slots.some((s) => item.slots.some((is) => is.startsWith(s)))) return false;
     if (f.wants.length && !f.wants.every((w) => hasAny(item, [w]))) return false;
     if (text) {
-      const hay = `${item.name} ${item.measuredMobs.join(' ')} ${item.drops.map((d) => `${d.zone} ${d.mobs.join(' ')}`).join(' ')}`.toLowerCase();
+      const questHay = item.questDetails
+        .map((q) => `${q.name} ${q.giver ?? ''} ${q.startZone ?? ''} ${q.classes.join(' ')}`)
+        .join(' ');
+      const hay = `${item.name} ${item.quests.join(' ')} ${item.measuredMobs.join(' ')} ${item.drops.map((d) => `${d.zone} ${d.mobs.join(' ')}`).join(' ')} ${questHay}`.toLowerCase();
       if (!hay.includes(text)) return false;
     }
     return true;

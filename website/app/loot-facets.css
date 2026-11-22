@@ -28,6 +28,33 @@
 .fmeasured{color:#3ff08a;border-color:#1f7a49;background:#0c2b1a}
 .fnorent{color:#f0c05a;border-color:#8a6a25;background:#2b2110}
 .fquest{color:#9fc0e2;border-color:#41608a;background:#14243c}
+.fquest.epic{color:#ffe08a;border-color:#c8a83a;background:#31260d;font-weight:800}
+.fquest.heroic{color:#f2dc9a;border-color:#b09a3a;background:#2a2210;font-weight:700}
+.fquest.unresolved{color:#cfcfcf;border-color:#777777;background:#3a3a3a;font-style:italic}
+.fcard{display:contents}
+.fcardmain{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;align-content:start;border:0;border-right:1px solid #2a3f58;border-bottom:1px solid #2a3f58;background:linear-gradient(145deg,#101d31,#182a44);color:#eef4fa;padding:13px;text-align:left;cursor:pointer;font:inherit}
+.fcardmain:hover,.fcardmain:focus-visible{background:linear-gradient(145deg,#244672,#2f5b8e);box-shadow:inset 0 0 0 1px #83bff1;outline:none}
+.fcardmain>span:first-child{display:grid;gap:4px;min-width:0}
+.fcardmain b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#ffe09a}
+.fcardmain small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#a9bfd4}
+.fcardmain em{font:500 12px/1.35 Georgia,serif;color:#8fd1a8;font-style:normal;overflow-wrap:anywhere}
+.fexpand{border:0;background:none;color:#8fa8cc;font:650 12px Inter,system-ui,sans-serif;padding:0;cursor:pointer}
+.fqbody{grid-column:1/-1;border-top:1px dashed #385375;border-bottom:1px solid #2a3f58;padding:12px 14px;display:grid;gap:9px;background:#0a121fee}
+.fqcard{border:1px solid #3c5a80;border-radius:8px;padding:9px 11px;display:grid;gap:4px;background:#12203a}
+.fqcard.fkind-epic{border-color:#c8a83a88}
+.fqcard.fkind-heroic{border-color:#b09a3a88}
+.fqcard>header{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.fqcard>header b{color:#ffe09a;font-size:13px;white-space:normal}
+.fkindspec{font:650 10px/1 Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.05em;padding:4px 9px;border-radius:999px;border:1px solid #8a7a4a;background:#241f14;color:#eadfa8;white-space:nowrap}
+.fkindspec.epic{color:#ffe08a;border-color:#c8a83a;background:#31260d;font-weight:800}
+.fkindspec.heroic{color:#f2dc9a;border-color:#b09a3a;background:#2a2210;font-weight:700}
+.fqcard p{margin:0;font-size:12px;line-height:1.5;color:#b9c9de}
+.fqmore{color:#8fa8cc !important;font-size:11.5px !important}
+.fqrewards{color:#d7e6f5 !important}
+.fqrewards button{background:none;border:0;padding:0;color:#9fc1ec;text-decoration:underline dotted;font:inherit;font-size:12px;cursor:pointer}
+.fqrewards button:hover{color:#ffe5ad}
+.fopcode{justify-self:start;background:none;border:0;padding:2px 0;color:#8fa8cc;font:italic 12.5px Georgia,serif;cursor:pointer;text-decoration:underline;text-decoration-color:#3c5a80;text-underline-offset:3px}
+.fopcode:hover{color:#bcd4f5}
 .facetmore{grid-column:1/-1;border:0;border-bottom:1px solid #2a3f58;background:#0d1a2c;color:#8fd1a8;font:600 13px Inter,system-ui,sans-serif;padding:13px;cursor:pointer}
 .facetmore:hover{background:#16283f;color:#ffe5ad}
 .facetempty{grid-column:1/-1;padding:18px;color:#c3b08a;font:italic 14px/1.5 Georgia,serif}

@@ -1,5 +1,27 @@
 # Changelog
 
+## Unreleased — 2026-11-22 (quest detail)
+
+- **Quest facet now carries its detail.** Items linked to a quest expand in the
+  facet finder to show **quest giver, start zone, level (min or recommended),
+  eligible classes, and the Epic / Heroic / Regular classification**, plus the
+  wiki's reward list (reward names click through to the evidence search).
+- New `scripts/sync-eqlwiki-quests.mjs` (`npm run sync:quests`, ≈1 min):
+  resolves all 1,578 quest names the item catalog references against
+  eqlwiki.com, fetches the 948 quest pages that exist, parses each
+  `questTopTable` and reward section, and classifies epics via
+  `Category:Epic Quests Era` / `{{Epics Era}}` markers →
+  `data/eqlwiki-quests.json` (0.25 MB, CC BY-SA headed). 622 referenced names
+  have no wiki page; those items keep a neutral "Quest?" badge instead of a
+  fake classification.
+- `lib/item-catalog.ts`: `readQuests()` + `attachQuests()` (epic-first sort),
+  `epicOnly` gate in `filterCatalog` (fails closed without the sidecar), and
+  text search extended across quest names/givers/zones/classes.
+- `LootFacets` gained an "Epic/heroic only" chip (disabled until the quest map
+  loads) and expandable quest cards; sidecar ships as `/data/eqlwiki-quests.json`.
+- Tests: +4 (17 total in `test-item-catalog.mjs`); full suite, gates, and
+  browser tour on the preview build all pass.
+
 ## Unreleased — 2026-11-22 (loot faceter)
 
 - **Faceted item finder (Loot tab).** New `LootFacets` explorer: filter by class (falls back to ALL-class items), equipment slot, desired +stats (AND semantics), measured-drops-only, quest-connected, and a text filter across names/mobs/zones. Deterministic and offline — filters run entirely on shipped data; no query ever leaves the browser.

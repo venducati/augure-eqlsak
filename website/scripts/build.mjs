@@ -15,6 +15,7 @@ cpSync('public', 'dist/client', { recursive: true, force: true });
 // Ship the item catalog as a runtime-fetched asset (multi-MB; must not enter
 // the JS bundle). Keep this path in sync with CATALOG_URL in LootFacets.
 if(existsSync('data/eqlwiki-items.json')){mkdirSync('dist/client/data',{recursive:true});cpSync('data/eqlwiki-items.json','dist/client/data/eqlwiki-items.json');}
+if(existsSync('data/eqlwiki-quests.json')){mkdirSync('dist/client/data',{recursive:true});cpSync('data/eqlwiki-quests.json','dist/client/data/eqlwiki-quests.json');}
 writeSpellIconManifest('dist/client');
 // SPA fallback is handled by public/_redirects ("/* /index.html 200") at the
 // host. Do NOT copy index.html to 404.html here: on Cloudflare Pages a static
