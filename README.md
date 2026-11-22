@@ -31,6 +31,8 @@ For a version that needs no installation, open **outputs/EQLSaK-Offline-Advisor.
 
 `website/` is the ported ChatGPT Sites edition of EQLSaK — the larger app with the loot atlas, dungeon dossiers, crafting guide, spell library, character lab, log tools and combat meter on one page. It was stripped of every hosting lock (vinext/RSC, `@openai/sites-vite-plugin`, wrangler/Cloudflare, `next/font`, `next/image`) and rebuilt as a standalone Vite SPA: `npm run website:build` writes a static folder to `website/dist/client` you can host anywhere; `npm run website:dev` serves it locally. It includes the 2026-09-10 branch's log finder and encounter journal (via the desktop fork's newer versions of those modules). See [website/PORT_NOTES.md](website/PORT_NOTES.md) for the exact conversions and caveats.
 
+It is published live (with a work-in-progress banner while it develops) at **https://eqlsak.pages.dev**. Pushes to `main` that touch `website/` deploy automatically: GitHub Actions runs the test suite, release gates and build, then publishes to Cloudflare Pages (`.github/workflows/deploy-website.yml`). SPA deep links rely on `website/public/_redirects`; never reintroduce a static `404.html` into the deploy output — it shadows the wildcard rule on Cloudflare Pages.
+
 ## What it does
 
 - Enter two or three classes and your goals. Rank third-class options and open a **See why** report with bullets, tradeoffs, sources, and a text download.

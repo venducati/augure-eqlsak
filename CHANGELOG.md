@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — 2026-11-22
+
+- **CI deploy pipeline wired.** `.github/workflows/deploy-website.yml`: any push to `main` touching `website/` runs install → 87 tests → release gates → build, then deploys `website/dist/client` to Cloudflare Pages via `wrangler-action` with scoped account secrets. A red test or gate can no longer reach the live site; the last known-good deploy stays published. Proven end-to-end with three production deploys on 2026-11-22.
+- **Build no longer emits `dist/client/404.html`.** The legacy copy of `index.html` to `404.html` shadowed the `_redirects` wildcard on Cloudflare Pages and 404'd every SPA deep link; `_redirects` (`/* /index.html 200`) is now the only fallback mechanism. Verified: `/`, `/zone/Castle-Mistaire`, `/combat-meter`, `/logs`, `/maps` all serve 200 on production.
+- **`.gitattributes` added** forcing LF endings so the byte-exact release-gate regexes behave identically on Linux CI runners (CRLF carry-over from the Windows robocopy import would otherwise fail them there).
+- **`website/` ported edition published publicly at `https://eqlsak.pages.dev`** with a work-in-progress banner (visible pre-JS via `<noscript>`) while development continues.
+
 ## 1.8.0 — 2026-11-21 (continued)
 
 - **Companion website ported into the fork (`website/`).** The ChatGPT Sites edition (`sites-project`, canonical copy `eql-companion-publish-v119`, 122 commits upstream) is now a standalone Vite SPA: vinext/RSC, `@openai/sites-vite-plugin`, `.openai/hosting.json`, wrangler/Cloudflare bindings, `next/font` and `next/image` all removed; `npm run website:build` writes `website/dist/client` for any static host. Deep `/zone/<Slug>` guide URLs map to the app's `?zone=` view; zone-guide links follow the same empty-origin-hides-links rule as the desktop app.
