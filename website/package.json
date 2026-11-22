@@ -14,9 +14,10 @@
     "release:check": "node scripts/release-gates.mjs",
     "sync:spells": "node scripts/sync-eqlwiki-spells.mjs",
     "sync:recipes": "node scripts/sync-eql-recipes.mjs",
+    "sync:items": "node scripts/sync-eqlwiki-items.mjs",
     "format": "oxfmt",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/test-build-advisor.mjs && node scripts/test-advisor-wording.mjs && node scripts/test-combat-meter.mjs && node scripts/test-zone-factions.mjs && node scripts/test-party-advisor.mjs && node scripts/test-zone-navigation.mjs && node scripts/test-advisor-render.mjs && node scripts/test-review-regressions.mjs && node scripts/test-eql-answer.mjs && node scripts/test-mobile-pwa.mjs && node scripts/test-crafting-data.mjs && node scripts/test-spellbook-status.mjs"
+    "test": "node scripts/test-build-advisor.mjs && node scripts/test-advisor-wording.mjs && node scripts/test-combat-meter.mjs && node scripts/test-zone-factions.mjs && node scripts/test-party-advisor.mjs && node scripts/test-zone-navigation.mjs && node scripts/test-advisor-render.mjs && node scripts/test-review-regressions.mjs && node scripts/test-eql-answer.mjs && node scripts/test-mobile-pwa.mjs && node scripts/test-crafting-data.mjs && node scripts/test-spellbook-status.mjs && node scripts/test-item-catalog.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.8.0",

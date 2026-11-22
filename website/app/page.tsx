@@ -30,6 +30,7 @@ import CityServiceMap from '@/components/CityServiceMap';
 import AtlasVoyageLayer from '@/components/AtlasVoyageLayer';
 import CommandDirectory from '@/components/CommandDirectory';
 import BuildAdvisor, { ContextualAdvisor, useBuildAdvisor } from '@/components/BuildAdvisor';
+import { LootFacets } from '@/components/LootFacets';
 import { parseBuild } from '@/lib/build-advisor';
 import {readProfiles} from '@/lib/local-state';
 import {readLootIndex} from '@/lib/loot-index';
@@ -1744,6 +1745,7 @@ export default function Home() {
                 broader baseline separate so “possible” never masquerades as
                 “verified.”
               </p>
+              <LootFacets lootIndex={lootIndex} onOpenItem={(name) => { setQuery(name); }} />
               {lootIndexState === 'ready' && !query.trim() && (
                 <section className="lootbrowser" aria-labelledby="measured-loot-title">
                   <header><div><small>BROWSE MEASURED DROPS</small><h3 id="measured-loot-title">Open any observed item</h3></div><span>Showing 48 of {lootIndex.length.toLocaleString()} · search above for the rest</span></header>

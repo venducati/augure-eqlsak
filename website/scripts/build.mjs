@@ -1,4 +1,4 @@
-import { accessSync, constants, cpSync, existsSync, readdirSync } from 'node:fs';
+import { accessSync, constants, cpSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import {spawnSync} from 'node:child_process';
 import { writeSpellIconManifest } from './spell-icon-manifest.mjs';
@@ -12,6 +12,9 @@ accessSync('dist/client/index.html', constants.R_OK);
 const assetDirs=readdirSync(join('dist/client','assets'));
 if(!assetDirs.some((n)=>/\.js$/.test(n)))throw new Error('dist/client/assets contains no JavaScript bundle');
 cpSync('public', 'dist/client', { recursive: true, force: true });
+// Ship the item catalog as a runtime-fetched asset (multi-MB; must not enter
+// the JS bundle). Keep this path in sync with CATALOG_URL in LootFacets.
+if(existsSync('data/eqlwiki-items.json')){mkdirSync('dist/client/data',{recursive:true});cpSync('data/eqlwiki-items.json','dist/client/data/eqlwiki-items.json');}
 writeSpellIconManifest('dist/client');
 // SPA fallback is handled by public/_redirects ("/* /index.html 200") at the
 // host. Do NOT copy index.html to 404.html here: on Cloudflare Pages a static

@@ -8,6 +8,7 @@ import './spacing.css';
 import './command-builder.css';
 import './mobile-pwa.css';
 import './crafting-guide.css';
+import './loot-facets.css';
 
 // Standalone shell: the hosted edition used Next.js `Metadata`/`Viewport` and
 // `next/font` here. Those tags now live in index.html and the Geist variables
