@@ -1,0 +1,1090 @@
+.spellcomparefacts article {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  border: 1px solid #413b32;
+  background: #111820;
+  color: #bcc8ca;
+  padding: 12px;
+  text-align: left;
+}
+
+.spellcomparefacts button:disabled {
+  cursor: not-allowed;
+  opacity: 0.68;
+}
+
+.spellcomparefacts button small {
+  color: #e0b45d;
+  font-size: .68rem;
+  letter-spacing: .04em;
+}
+
+.spellcomparefacts button:not(:disabled):hover,
+.spellcomparefacts button:not(:disabled):focus-visible {
+  border-color: #f0c66b;
+  background: linear-gradient(135deg, #3f2a1b, #19364b);
+  outline: none;
+}
+
+.spellcheckresults {
+  scroll-margin-top: 88px;
+  border: 1px solid #745938;
+  background: linear-gradient(145deg, #101923f5, #19120ff5);
+  box-shadow: 0 18px 42px #05070b66;
+}
+
+.spellcheckresults:focus-visible {
+  outline: 2px solid #f0c66b;
+  outline-offset: 3px;
+}
+
+.spellcheckresults > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #58452e;
+  background: linear-gradient(110deg, #263f60e8, #4a251fe8);
+}
+
+.spellcheckresults > header small {
+  color: #e7b95c;
+  letter-spacing: .11em;
+}
+
+.spellcheckresults > header h3 {
+  margin: 4px 0;
+  color: #fff0c9;
+  font: 400 1.55rem Georgia, serif;
+}
+
+.spellcheckresults > header p {
+  max-width: 720px;
+  margin: 0;
+  color: #c8cfce;
+  font-size: .88rem;
+  line-height: 1.5;
+}
+
+.spellcheckresults > header strong {
+  flex: 0 0 auto;
+  border: 1px solid #d3a54e;
+  background: #2d2119;
+  color: #f4ce7c;
+  padding: 8px 10px;
+  font-size: .82rem;
+}
+
+.spellstatusnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 14px 16px 0;
+}
+
+.spellstatusnav button {
+  border: 1px solid #5e503f;
+  background: #111a22;
+  color: #c8d0ce;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+
+.spellstatusnav button:hover:not(:disabled),
+.spellstatusnav button:focus-visible,
+.spellstatusnav button.active {
+  border-color: #e0ad51;
+  background: linear-gradient(135deg, #4b301d, #213a50);
+  color: #fff0c8;
+  outline: none;
+}
+
+.spellstatusnav button:disabled {
+  cursor: not-allowed;
+  opacity: .48;
+}
+
+.spellcheckresults .spellfilters {
+  padding: 12px 16px;
+}
+
+.spellstatuslist {
+  counter-reset: spell-row;
+  display: grid;
+  gap: 7px;
+  max-height: min(66vh, 760px);
+  margin: 0;
+  overflow: auto;
+  padding: 0 16px 16px;
+  list-style: none;
+  scrollbar-color: #a67738 #0c1116;
+}
+
+.spellstatuslist > li {
+  counter-increment: spell-row;
+  border: 1px solid #3d4648;
+  background: linear-gradient(135deg, #111a21, #16130f);
+}
+
+.spellstatuslist > li.known { border-left: 4px solid #55aa98; }
+.spellstatuslist > li.needed { border-left: 4px solid #d49b42; }
+.spellstatuslist > li.future { border-left: 4px solid #7d6c9c; }
+
+.spellstatuslist details > summary {
+  display: grid;
+  grid-template-columns: 44px 42px minmax(0, 1fr) auto 20px;
+  gap: 10px;
+  align-items: center;
+  min-height: 64px;
+  padding: 8px 11px;
+  color: #e9e4d9;
+  cursor: pointer;
+  list-style: none;
+}
+
+.spellstatuslist details > summary::-webkit-details-marker { display: none; }
+
+.spellstatuslist details > summary:hover,
+.spellstatuslist details > summary:focus-visible {
+  background: #ffffff08;
+  outline: 2px solid #dcb058;
+  outline-offset: -2px;
+}
+
+.spellstatuslist .catalogsigil {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+}
+
+.spellstatuslist .catalogsigil svg {
+  width: 22px;
+  height: 22px;
+}
+
+.spelllistnumber::before {
+  content: counter(spell-row, decimal-leading-zero);
+  color: #d3ab62;
+  font: 700 .78rem/1 var(--font-geist-mono), monospace;
+}
+
+.spelllistidentity {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.spelllistidentity b {
+  color: #f5e8ce;
+  font: 400 1.02rem Georgia, serif;
+}
+
+.spelllistidentity small {
+  color: #a9b6b8;
+  font-size: .72rem;
+  line-height: 1.35;
+}
+
+.spellstatuslist summary > em {
+  border: 1px solid #6f5b3d;
+  color: #e6c47f;
+  padding: 5px 7px;
+  font-size: .7rem;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.spellstatuslist summary > svg {
+  width: 17px;
+  color: #d8ad59;
+  transition: transform .18s ease;
+}
+
+.spellstatuslist details[open] summary > svg { transform: rotate(90deg); }
+
+.spellstatuslist .spellcardmain {
+  margin-left: 108px;
+  padding: 0 14px 14px;
+}
+
+.spellstatuslist .spellreportfields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+@media (max-width: 650px) {
+  .spellcheckresults > header {
+    flex-direction: column;
+  }
+  .spellstatuslist details > summary {
+    grid-template-columns: 40px 32px minmax(0, 1fr) 18px;
+  }
+  .spellstatuslist summary > em {
+    grid-column: 3;
+    justify-self: start;
+  }
+  .spellstatuslist summary > svg {
+    grid-column: 4;
+    grid-row: 1 / 3;
+  }
+  .spellstatuslist .spellcardmain {
+    margin-left: 82px;
+  }
+}
+
+@media (max-width: 440px) {
+  .spellstatusnav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .spellstatuslist {
+    padding-inline: 10px;
+  }
+  .spellstatuslist details > summary {
+    grid-template-columns: 38px minmax(0, 1fr) 18px;
+    gap: 8px;
+  }
+  .spelllistnumber { display: none; }
+  .spellstatuslist summary > em { grid-column: 2; }
+  .spellstatuslist summary > svg { grid-column: 3; }
+  .spellstatuslist .spellcardmain {
+    margin-left: 0;
+    padding: 0 11px 12px;
+  }
+  .spellstatuslist .spellreportfields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.spellclassrail {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.spelltriopicker {
+  display: grid;
+  gap: 10px;
+}
+
+.spellclassgroups {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(240px, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.spellclassgroups > section {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid #5c4933;
+  background: linear-gradient(145deg, #101c29e8, #211513e8);
+  padding: 10px;
+}
+
+.spellclassgroups > section > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 2px 4px 8px;
+  border-bottom: 1px solid #493a2d;
+}
+
+.spellclassgroups > section > header div {
+  display: grid;
+  gap: 2px;
+}
+
+.spellclassgroups > section > header b {
+  color: #f1d18a;
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+}
+
+.spellclassgroups > section > header span {
+  color: #9faeaf;
+  font-size: 0.72rem;
+}
+
+.spellclassgroups > section > header strong {
+  min-width: 28px;
+  border: 1px solid #8d6737;
+  background: #39251a;
+  color: #f1bd5d;
+  padding: 4px 7px;
+  text-align: center;
+  font-size: 0.76rem;
+}
+
+.spellclassgroups > section:last-child .spellclassrail {
+  grid-template-columns: 1fr;
+}
+
+.spelltriosummary {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid #6d5435;
+  background: linear-gradient(90deg, #172b43e8, #391b18e8);
+  padding: 10px 14px;
+  color: #d6d9d5;
+}
+
+.spelltriosummary b {
+  color: #f0bf5b;
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+}
+
+.spelltriosummary span {
+  text-align: right;
+  font-size: 0.82rem;
+}
+
+.spellclassrail button {
+  grid-template-columns: 56px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  min-width: 0;
+  min-height: 88px;
+  align-content: center;
+}
+
+.spellclassrail button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.spellclassrail button.active .classgem {
+  transform: translateY(-2px) scale(1.04);
+  border-color: #ffe09a;
+  box-shadow:
+    inset 0 0 0 2px #0a1018,
+    inset 0 0 22px #d9edff82,
+    0 9px 18px #000c,
+    0 0 18px #f1c76575;
+}
+
+.spellclassrail button:focus-visible {
+  outline: 2px solid #ffe19a;
+  outline-offset: 2px;
+}
+
+.spellclassrail button .classgem {
+  grid-row: 1 / 3;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 58px;
+  border: 2px solid #e6bf6a;
+  clip-path: polygon(
+    50% 0,
+    92% 16%,
+    100% 60%,
+    76% 100%,
+    24% 100%,
+    0 60%,
+    8% 16%
+  );
+  background:
+    radial-gradient(circle at 35% 28%, #7fd2ff 0 10%, transparent 32%),
+    linear-gradient(145deg, #214e74, #172333 58%, #4c261d);
+  box-shadow:
+    inset 0 0 0 2px #0a1018,
+    inset 0 0 18px #9edcff70,
+    0 7px 14px #000b,
+    0 0 12px #dfb65235;
+  color: #fff4d3;
+  line-height: 1;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.spellclassrail button .classgem::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  z-index: -1;
+  border: 1px solid #fff5c948;
+  clip-path: inherit;
+  background: linear-gradient(135deg, #ffffff2e, transparent 45%, #00000033);
+}
+
+.spellclassrail button .classgem::after {
+  content: '';
+  position: absolute;
+  top: -28%;
+  left: -45%;
+  width: 78%;
+  height: 150%;
+  transform: rotate(27deg);
+  background: linear-gradient(90deg, transparent, #ffffff45, transparent);
+  transition: transform .28s ease;
+}
+
+.spellclassrail button:hover .classgem::after,
+.spellclassrail button.active .classgem::after {
+  transform: translateX(115%) rotate(27deg);
+}
+
+.spellclassrail button .classgem svg {
+  width: 25px;
+  height: 25px;
+  stroke-width: 1.8;
+  filter: drop-shadow(0 2px 2px #000c) drop-shadow(0 0 5px #e5f5ff75);
+}
+
+.spellclassrail button .classgem span {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  color: #fff0c5;
+  font: 700 .48rem/1 system-ui, sans-serif;
+  letter-spacing: .08em;
+  text-shadow: 0 1px 2px #000;
+}
+
+.spellclassrail button .classgem.brd {
+  background:
+    radial-gradient(circle at 35% 28%, #f5b9ff 0 9%, transparent 31%),
+    linear-gradient(145deg, #70457f, #30234c 58%, #8d5a25);
+}
+.spellclassrail button .classgem.bst {
+  background:
+    radial-gradient(circle at 35% 28%, #c8a6ff 0 9%, transparent 31%),
+    linear-gradient(145deg, #544477, #242844 58%, #432d24);
+}
+.spellclassrail button .classgem.clr {
+  background:
+    radial-gradient(circle at 35% 28%, #fff4aa 0 9%, transparent 31%),
+    linear-gradient(145deg, #c38a32, #6c3f22 58%, #253f63);
+}
+.spellclassrail button .classgem.dru {
+  background:
+    radial-gradient(circle at 35% 28%, #d4f69b 0 9%, transparent 31%),
+    linear-gradient(145deg, #4f813f, #1f4c3d 58%, #343b20);
+}
+.spellclassrail button .classgem.enc {
+  background:
+    radial-gradient(circle at 35% 28%, #e6c2ff 0 9%, transparent 31%),
+    linear-gradient(145deg, #7c4f91, #3b285b 58%, #1e4c65);
+}
+.spellclassrail button .classgem.mag {
+  background:
+    radial-gradient(circle at 35% 28%, #ffd4a0 0 9%, transparent 31%),
+    linear-gradient(145deg, #9b492f, #4f2736 58%, #3b376d);
+}
+.spellclassrail button .classgem.nec {
+  background:
+    radial-gradient(circle at 35% 28%, #dab9ef 0 9%, transparent 31%),
+    linear-gradient(145deg, #57385f, #241d32 58%, #442523);
+}
+.spellclassrail button .classgem.pal {
+  background:
+    radial-gradient(circle at 35% 28%, #fff0a0 0 9%, transparent 31%),
+    linear-gradient(145deg, #a47830, #514329 58%, #254b68);
+}
+.spellclassrail button .classgem.rng {
+  background:
+    radial-gradient(circle at 35% 28%, #c9e58d 0 9%, transparent 31%),
+    linear-gradient(145deg, #4b7136, #243c32 58%, #6b4528);
+}
+.spellclassrail button .classgem.shd {
+  background:
+    radial-gradient(circle at 35% 28%, #bd8fe1 0 9%, transparent 31%),
+    linear-gradient(145deg, #4e3565, #211c35 58%, #4b2428);
+}
+.spellclassrail button .classgem.shm {
+  background:
+    radial-gradient(circle at 35% 28%, #9dcaff 0 9%, transparent 31%),
+    linear-gradient(145deg, #315f78, #27324f 58%, #59313d);
+}
+.spellclassrail button .classgem.wiz {
+  background:
+    radial-gradient(circle at 35% 28%, #ffc27e 0 9%, transparent 31%),
+    linear-gradient(145deg, #a73f2d, #58283c 58%, #313e73);
+}
+.spellclassrail button .classgem.ber {
+  background:
+    radial-gradient(circle at 35% 28%, #ffb184 0 9%, transparent 31%),
+    linear-gradient(145deg, #8a382f, #4b2524 58%, #352d38);
+}
+.spellclassrail button .classgem.mnk {
+  background:
+    radial-gradient(circle at 35% 28%, #d8ecff 0 9%, transparent 31%),
+    linear-gradient(145deg, #4b7180, #283e50 58%, #63432a);
+}
+.spellclassrail button .classgem.rog {
+  background:
+    radial-gradient(circle at 35% 28%, #d5c2ff 0 9%, transparent 31%),
+    linear-gradient(145deg, #514b70, #25283b 58%, #45352b);
+}
+.spellclassrail button .classgem.war {
+  background:
+    radial-gradient(circle at 35% 28%, #bfdaf5 0 9%, transparent 31%),
+    linear-gradient(145deg, #465e78, #273342 58%, #5e3d2a);
+}
+
+.spellclassrail button b {
+  min-width: 0;
+  font-size: 0.9rem;
+  line-height: 1.15;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.spellclassrail button small {
+  grid-column: 2;
+  line-height: 1.15;
+  white-space: normal;
+}
+
+.spellcardmain .spellreportlabel {
+  display: block;
+  margin-top: 10px;
+  color: #dcb869;
+  font-size: .61rem;
+  letter-spacing: .12em;
+}
+
+.spellcardmain .spellreportfields {
+  grid-template-columns: 1fr 1fr;
+  margin-top: 5px;
+}
+
+.spellcardmain .spellreportfields .spelldescription {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 5px;
+  padding: 8px 0 9px;
+  border-top-color: #675333;
+}
+
+.spellcardmain .spellreportfields .spelldescription dd {
+  color: #d6d2c8;
+  text-align: left;
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.spellcardmain .spellreportfields > div:last-child {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 440px) {
+  .spelltriosummary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .spelltriosummary span {
+    text-align: left;
+  }
+
+  .spellclassrail {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .spellclassgroups {
+    grid-template-columns: 1fr;
+  }
+
+  .spellclassgroups > section:last-child .spellclassrail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.characterabilityworkspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 14px;
+  align-items: start;
+}
+.achievementworkbench,
+.actionssimulator {
+  border: 1px solid #725735;
+  background: linear-gradient(145deg, #121b25f2, #18120ff2);
+  box-shadow: 0 18px 40px #05070b66;
+  min-width: 0;
+}
+.achievementworkbench > header,
+.actionssimulator > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+  padding: 18px 20px;
+  border-bottom: 1px solid #56422e;
+  background: linear-gradient(110deg, #253f61e8, #4a251fe8);
+}
+.achievementworkbench > header > svg,
+.actionssimulator > header > svg {
+  width: 34px;
+  height: 34px;
+  color: #efbd58;
+  filter: drop-shadow(0 3px 8px #0008);
+}
+.achievementworkbench small,
+.actionssimulator small {
+  color: #e0b45d;
+  letter-spacing: 0.08em;
+}
+.achievementworkbench h3,
+.actionssimulator h3 {
+  margin: 4px 0;
+  color: #fff0c9;
+  font:
+    400 1.55rem Georgia,
+    serif;
+}
+.achievementworkbench header p,
+.actionssimulator header p {
+  margin: 0;
+  color: #c9cecb;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+.achievementsteps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 9px;
+  padding: 15px;
+}
+.achievementsteps > div {
+  display: grid;
+  grid-template-columns: 27px 1fr;
+  gap: 9px;
+  align-items: center;
+  border: 1px solid #3f4647;
+  background: #0e151c;
+  padding: 10px;
+}
+.achievementsteps > div > b {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #243f59;
+  color: #f1c468;
+}
+.achievementsteps span {
+  font-size: 0.78rem;
+  color: #c4cdcc;
+  line-height: 1.4;
+}
+.achievementsteps button,
+.achievementfilters label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #9a7136;
+  background: #3e291b;
+  color: #f7dd9d;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+.achievementsteps button svg {
+  width: 16px;
+}
+.achievementempty {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0 15px 15px;
+  padding: 18px;
+  border: 1px dashed #67563f;
+  color: #aeb9ba;
+}
+.achievementempty svg {
+  width: 30px;
+  color: #668aa3;
+}
+.achievementempty div {
+  display: grid;
+  gap: 4px;
+}
+.achievementempty b {
+  color: #ead39e;
+}
+.achievementempty span {
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+.achievementprogress {
+  display: grid;
+  gap: 8px;
+  padding: 4px 15px 12px;
+}
+.achievementprogress > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #ccd2cf;
+}
+.achievementprogress > div small {
+  letter-spacing: 0;
+  color: #91a3aa;
+}
+.achievementprogress > i {
+  height: 10px;
+  border: 1px solid #56462f;
+  background: #080d11;
+}
+.achievementprogress em {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #3186a3, #d6a947);
+}
+.achievementfacts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  padding: 0 15px 12px;
+}
+.achievementfacts button {
+  display: grid;
+  gap: 3px;
+  border: 1px solid #414748;
+  background: #11191f;
+  color: #bbc5c5;
+  padding: 9px;
+  text-align: left;
+  cursor: pointer;
+}
+.achievementfacts button.active {
+  border-color: #d7a648;
+  background: #3c291c;
+}
+.achievementfacts b {
+  color: #efc56e;
+  font-size: 1.25rem;
+}
+.achievementfacts span {
+  font-size: 0.68rem;
+}
+.achievementfilters {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 9px;
+  padding: 0 15px 12px;
+}
+.achievementfilters label {
+  justify-content: flex-start;
+  background: #0d151c;
+  padding: 0 10px;
+}
+.achievementfilters svg {
+  width: 17px;
+}
+.achievementfilters input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  padding: 10px;
+}
+.achievementfilters > span {
+  color: #d8b46c;
+  font-size: 0.75rem;
+}
+.achievementlist {
+  display: grid;
+  gap: 6px;
+  max-height: 430px;
+  overflow: auto;
+  padding: 0 15px 15px;
+}
+.achievementlist article {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: center;
+  border: 1px solid #394041;
+  background: #10171c;
+  padding: 9px;
+}
+.achievementlist article.complete {
+  border-left: 3px solid #4ca58f;
+}
+.achievementlist article.open {
+  border-left: 3px solid #d5a347;
+}
+.achievementlist article.locked {
+  border-left: 3px solid #8b617f;
+}
+.achievementlist article > i {
+  color: #d8ae59;
+}
+.achievementlist article > i svg {
+  width: 18px;
+}
+.achievementlist article > div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.achievementlist article b {
+  color: #ece2cf;
+  font-size: 0.82rem;
+}
+.achievementlist article span,
+.achievementlist article small {
+  color: #8fa0a5;
+  font-size: 0.69rem;
+}
+.achievementlist article > em {
+  font-style: normal;
+  color: #d6bb7e;
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+.actionswindow {
+  margin: 15px;
+  border: 1px solid #705532;
+  background: linear-gradient(145deg, #18212a, #0b0f13);
+  box-shadow: inset 0 0 35px #0008;
+}
+.actionswindow > nav {
+  display: flex;
+  gap: 3px;
+  padding: 7px;
+  border-bottom: 1px solid #4f412e;
+  background: #231b15;
+}
+.actionswindow > nav button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #9fa9aa;
+  padding: 8px 11px;
+  cursor: pointer;
+}
+.actionswindow > nav button.active {
+  border-color: #bd8d43;
+  background: #46301e;
+  color: #ffe0a0;
+}
+.actionspage {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 390px;
+}
+.actionslots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  align-content: start;
+  padding: 13px;
+}
+.actionslots button {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2px 8px;
+  align-items: center;
+  min-height: 66px;
+  border: 1px solid #4c5050;
+  background: linear-gradient(140deg, #202a32, #16181b);
+  color: #d9dedb;
+  padding: 8px;
+  text-align: left;
+  cursor: pointer;
+}
+.actionslots button:hover,
+.actionslots button.selected {
+  border-color: #e0ad51;
+  background: linear-gradient(140deg, #49301d, #23384a);
+}
+.actionslots button.fired i {
+  animation: actionpulse 0.7s ease;
+}
+.actionslots i {
+  grid-row: 1/3;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  clip-path: polygon(
+    12% 0,
+    88% 0,
+    100% 12%,
+    100% 88%,
+    88% 100%,
+    12% 100%,
+    0 88%,
+    0 12%
+  );
+  background: radial-gradient(
+    circle at 35% 30%,
+    #d6c1ff,
+    #594872 38%,
+    #1e2435 75%
+  );
+  border: 2px solid #d1a858;
+  color: #fff;
+}
+.actionslots i svg {
+  width: 19px;
+}
+.actionslots span {
+  font-size: 0.72rem;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.actionslots small {
+  font-size: 0.61rem;
+  letter-spacing: 0;
+  color: #c19f62;
+}
+.actionspage aside {
+  padding: 16px;
+  border-top: 1px solid #4b402f;
+  background: #111518;
+}
+.actionspage aside h4 {
+  margin: 6px 0;
+  color: #f2d38e;
+  font:
+    400 1.2rem Georgia,
+    serif;
+}
+.actionspage aside p {
+  color: #aeb8b7;
+  font-size: 0.77rem;
+  line-height: 1.45;
+}
+.actionspage dl {
+  display: grid;
+  gap: 6px;
+  margin: 14px 0;
+}
+.actionspage dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid #303638;
+  padding-top: 6px;
+  font-size: 0.7rem;
+}
+.actionspage dt {
+  color: #7f9298;
+}
+.actionspage dd {
+  margin: 0;
+  color: #d9d2c3;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.actionspage aside a {
+  color: #e3b45c;
+  font-size: 0.75rem;
+}
+.actionplaceholder {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  min-height: 330px;
+  padding: 30px;
+  text-align: center;
+  color: #aeb8b8;
+}
+.actionplaceholder svg {
+  width: 42px;
+  color: #d7a64d;
+}
+.actionplaceholder b {
+  color: #efd79f;
+}
+.actionplaceholder span {
+  max-width: 480px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.actionabilitypage{display:grid;gap:12px;padding:15px;min-height:330px;align-content:start}.actionabilitypage>header{display:flex;gap:10px;align-items:center;color:#e8d29f}.actionabilitypage>header svg{width:28px;color:#d6a54c}.actionabilitypage>header div{display:grid;gap:3px}.actionabilitypage>header span{color:#96a6a9;font-size:.75rem;line-height:1.4}.actionabilitypage>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.actionabilitypage article{display:grid;grid-template-columns:31px 1fr;gap:3px 8px;align-items:center;border:1px solid #3e484b;background:#11191f;padding:9px}.actionabilitypage article i{grid-row:1/3;display:grid;place-items:center;width:29px;height:29px;border:1px solid #987343;background:#25374a;color:#e8bb60}.actionabilitypage article i svg{width:15px}.actionabilitypage article span{font-size:.76rem;color:#e0ded5}.actionabilitypage article small{letter-spacing:0;font-size:.62rem}.actionabilitypage>p{color:#9caaac;font-size:.8rem}
+.actionssimulator > footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 15px 15px;
+  color: #b7c0bd;
+  font-size: 0.73rem;
+}
+.actionssimulator > footer b {
+  color: #d9bf84;
+}
+.actionssimulator > footer span {
+  white-space: nowrap;
+  color: #84979d;
+}
+@keyframes actionpulse {
+  0% {
+    filter: brightness(1);
+  }
+  40% {
+    filter: brightness(2.2);
+    transform: scale(1.08);
+  }
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+}
+@media (max-width: 1050px) {
+  .characterabilityworkspace {
+    grid-template-columns: 1fr;
+  }
+  .actionspage {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 650px) {
+  .achievementsteps {
+    grid-template-columns: 1fr;
+  }
+  .achievementfacts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .actionspage {
+    grid-template-columns: 1fr;
+  }
+  .actionspage aside {
+    border-left: 0;
+    border-top: 1px solid #4b402f;
+  }
+  .actionslots {
+    grid-template-columns: 1fr 1fr;
+  }
+  .actionssimulator > footer,
+  .achievementprogress > div {
+    flex-direction: column;
+  }
+  .actionssimulator > footer span {
+    white-space: normal;
+  }
+}
+@media (max-width: 430px) {
+  .actionslots {
+    grid-template-columns: 1fr;
+  }
+  .achievementfacts {
+    grid-template-columns: 1fr;
+  }
+  .achievementfilters {
+    grid-template-columns: 1fr;
+  }
+  .achievementlist article {
+    grid-template-columns: 24px 1fr;
+  }
+  .achievementlist article > em {
+    grid-column: 2;
+  }
+}

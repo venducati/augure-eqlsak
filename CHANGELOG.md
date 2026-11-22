@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.0 — 2026-11-21 (continued)
+
+- **Companion website ported into the fork (`website/`).** The ChatGPT Sites edition (`sites-project`, canonical copy `eql-companion-publish-v119`, 122 commits upstream) is now a standalone Vite SPA: vinext/RSC, `@openai/sites-vite-plugin`, `.openai/hosting.json`, wrangler/Cloudflare bindings, `next/font` and `next/image` all removed; `npm run website:build` writes `website/dist/client` for any static host. Deep `/zone/<Slug>` guide URLs map to the app's `?zone=` view; zone-guide links follow the same empty-origin-hides-links rule as the desktop app.
+- **Log finder + encounter journal folded in** from the 2026-09-10 branch using the desktop fork's newer versions of those modules (plus the current combat parser with `(Critical)` stripping and `isDamage`/`isSelf`); the website Combat Meter receives the live profile advisor input, same as the desktop app. 12 test suites (87 tests), typecheck, lint and `release:check` pass in `website/`; conversions and caveats documented in `website/PORT_NOTES.md`.
+
 ## 1.8.0 — 2026-11-21
 
 - **Travel across Norrath.** A point-to-point world route planner lives inside **Maps & Routes**: choose From and To zones and BA lists every hop (walk, boat, dock translocator, druid/wizard port, planar portal) with minutes and an **Open map of …** button that loads each step's local map.

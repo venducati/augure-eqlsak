@@ -1,0 +1,3 @@
+SpellID	SpellName	Level	Class
+1	Chant of Battle	1	Bard
+2	Burst of Flame	1	Shaman

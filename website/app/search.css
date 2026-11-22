@@ -1,0 +1,282 @@
+.search > button[type='submit'] {
+  color: var(--moss);
+  cursor: pointer;
+}
+
+.searchfeedback {
+  margin: 8px 2px 0;
+  color: #d8c27f;
+  font-size: 13px;
+}
+
+.lootcoverage {
+  margin: 18px 0 22px;
+  padding: 22px;
+  border: 1px solid rgba(205, 174, 92, 0.32);
+  border-radius: 16px;
+  background:
+    linear-gradient(120deg, rgba(34, 23, 18, 0.95), rgba(11, 22, 19, 0.92)),
+    radial-gradient(circle at 85% 15%, rgba(170, 116, 47, 0.22), transparent 38%);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.24);
+}
+
+.lootcoverage h2 {
+  margin: 5px 0 7px;
+  color: #f3dfaa;
+}
+
+.lootcoverage > div:first-child p,
+.coveragewarning {
+  max-width: 820px;
+  color: #c8c1aa;
+  line-height: 1.55;
+}
+
+.lootsources {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0 14px;
+}
+
+.lootsources a,
+.externalresults a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid rgba(205, 174, 92, 0.26);
+  border-radius: 11px;
+  color: #f1d995;
+  text-decoration: none;
+  background: rgba(8, 13, 12, 0.54);
+}
+
+.lootsources a:hover,
+.externalresults a:hover {
+  border-color: rgba(239, 207, 119, 0.7);
+  transform: translateY(-1px);
+}
+
+.lootsources span {
+  color: #ada993;
+  font-size: 12px;
+}
+
+.coveragewarning {
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(205, 174, 92, 0.16);
+  font-size: 12px;
+}
+
+.lootresult {
+  border-left: 2px solid rgba(208, 168, 77, 0.68);
+}
+
+.externalresults {
+  margin: 12px;
+  padding: 18px;
+  border: 1px dashed rgba(205, 174, 92, 0.32);
+  border-radius: 12px;
+  color: #bbb49d;
+}
+
+.externalresults p {
+  margin: 5px 0 12px;
+}
+
+.externalresults a {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.externalresults svg {
+  width: 16px;
+}
+
+@media (max-width: 720px) {
+  .lootsources {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leveladvisor {
+  margin: 12px 0 26px;
+  border: 1px solid rgba(213, 164, 70, 0.4);
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(45, 36, 24, 0.96), rgba(14, 14, 12, 0.94));
+  box-shadow: inset 0 1px rgba(255, 225, 159, 0.1), 0 16px 42px rgba(0, 0, 0, 0.3);
+}
+
+.leveladvisor > form {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.8fr) minmax(240px, 1.2fr);
+  align-items: center;
+  gap: 10px 22px;
+  padding: 17px 20px;
+}
+
+.leveladvisor label {
+  color: #f4dfb0;
+  font: 400 1.08rem Georgia, serif;
+}
+
+.leveladvisor form > div {
+  display: grid;
+  grid-template-columns: minmax(90px, 1fr) auto;
+  gap: 8px;
+}
+
+.leveladvisor input {
+  min-width: 0;
+  border: 1px solid #806538;
+  border-radius: 8px;
+  outline: none;
+  background: #0c0c0af0;
+  color: #fff0c9;
+  padding: 11px 13px;
+  font-size: 1rem;
+}
+
+.leveladvisor input:focus {
+  border-color: #f0c76f;
+  box-shadow: 0 0 0 3px rgba(218, 167, 67, 0.18);
+}
+
+.leveladvisor form button {
+  border: 1px solid #f0c76f;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #edc264, #a96f26);
+  color: #251707;
+  padding: 10px 17px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.leveladvisor form > small {
+  grid-column: 2;
+  color: #a9a087;
+  font-size: 0.75rem;
+}
+
+.levelresults {
+  border-top: 1px solid rgba(213, 164, 70, 0.25);
+  padding: 18px 20px 16px;
+  background: rgba(8, 9, 8, 0.45);
+}
+
+.levelresults > header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.levelresults header small {
+  color: #efbd5b;
+  letter-spacing: 0.13em;
+  font-size: 0.72rem;
+}
+
+.levelresults h2 {
+  margin: 4px 0 0;
+  color: #f5e7c9;
+  font: 400 1.35rem Georgia, serif;
+}
+
+.levelresults header > span {
+  color: #b7aa90;
+  font-size: 0.8rem;
+}
+
+.levelresults > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.levelresults > div > button {
+  position: relative;
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 13px 38px 13px 14px;
+  border: 1px solid #55472c;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #2b2922, #181713);
+  color: #f1e5ca;
+  text-align: left;
+  cursor: pointer;
+}
+
+.levelresults > div > button:hover {
+  border-color: #d5a446;
+  background: linear-gradient(135deg, #3a3121, #201c15);
+}
+
+.levelresults button b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.levelresults button span {
+  color: #aaa28d;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.levelresults button em {
+  color: #d9b75f;
+  font-size: 0.68rem;
+  font-style: normal;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.levelresults button svg {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 15px;
+  transform: translateY(-50%);
+  color: #d5a446;
+}
+
+.advisorpolicy,
+.levelerror {
+  margin: 12px 0 0;
+  color: #9d9683;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.levelerror {
+  margin: 0 20px 16px;
+  color: #f0b27b;
+}
+
+@media (max-width: 900px) {
+  .levelresults > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .leveladvisor > form {
+    grid-template-columns: 1fr;
+  }
+
+  .leveladvisor form > small {
+    grid-column: 1;
+  }
+
+  .levelresults > div {
+    grid-template-columns: 1fr;
+  }
+}

@@ -10,3 +10,5 @@ outputs/
 *.log
 *.pem
 *.tsbuildinfo
+website/dist/
+website/.wrangler/

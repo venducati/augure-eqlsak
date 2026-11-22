@@ -1,0 +1,52 @@
+{
+  "name": "eqlsak-companion-website",
+  "version": "1.8.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build.mjs",
+    "preview": "vite preview",
+    "lint": "oxlint app components lib -A react/react-compiler -A typescript/no-deprecated -A jsx-a11y/prefer-tag-over-role",
+    "release:check": "node scripts/release-gates.mjs",
+    "sync:spells": "node scripts/sync-eqlwiki-spells.mjs",
+    "sync:recipes": "node scripts/sync-eql-recipes.mjs",
+    "format": "oxfmt",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/test-build-advisor.mjs && node scripts/test-advisor-wording.mjs && node scripts/test-combat-meter.mjs && node scripts/test-zone-factions.mjs && node scripts/test-party-advisor.mjs && node scripts/test-zone-navigation.mjs && node scripts/test-advisor-render.mjs && node scripts/test-review-regressions.mjs && node scripts/test-eql-answer.mjs && node scripts/test-mobile-pwa.mjs && node scripts/test-crafting-data.mjs && node scripts/test-spellbook-status.mjs"
+  },
+  "dependencies": {
+    "@base-ui/react": "1.8.0",
+    "@shadcn/react": "0.3.1",
+    "@types/three": "^0.185.4",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "cmdk": "1.1.1",
+    "embla-carousel-react": "8.6.0",
+    "input-otp": "1.5.0",
+    "lucide-react": "1.31.0",
+    "react": "19.2.8",
+    "react-day-picker": "10.0.1",
+    "react-dom": "19.2.8",
+    "react-resizable-panels": "4.12.4",
+    "recharts": "3.10.1",
+    "tailwind-merge": "3.6.0",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "oxfmt": "0.67.0",
+    "oxlint": "1.76.0",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vite": "8.2.2"
+  },
+  "type": "module"
+}

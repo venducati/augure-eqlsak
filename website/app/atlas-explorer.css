@@ -1,0 +1,53 @@
+.dossier .dossiergrid { grid-template-columns: 1fr; }
+.mapdossier.atlas-style { overflow: hidden; background: linear-gradient(145deg, #071426f2, #24130df2); box-shadow: 0 18px 55px #0009; }
+.dungeonmaphead { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid #765033; padding: 14px 18px; background: linear-gradient(90deg, #102944, #32170f); }
+.dungeonmaphead small { color: #e7b84d; letter-spacing: .13em; text-transform: uppercase; }
+.dungeonmaphead h3 { margin: 4px 0 0; color: #fff0cf; font: 400 25px Georgia, serif; }
+.dungeonmaphead > div:last-child { display: flex; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+.dungeonmaphead span { border: 1px solid #5c6c7a; background: #071321aa; color: #c9d9e5; padding: 5px 8px; font-size: 11px; }
+.dungeonexplorer { display: grid; grid-template-columns: minmax(0, 1fr) 300px; min-height: 620px; }
+.dungeonstage { height: 620px; border-right: 1px solid #765033; background-color: #080f19; background-image: linear-gradient(#4a6b8322 1px, transparent 1px), linear-gradient(90deg, #4a6b8322 1px, transparent 1px), radial-gradient(circle at 50% 45%, #20364a, #070b12 73%); cursor: grab; }
+.dungeonstage.dragging { cursor: grabbing; }
+.mapstagecontrols { position: absolute; z-index: 4; right: 13px; top: 13px; display: flex; align-items: center; border: 1px solid #8b6638; background: #071423e8; box-shadow: 0 7px 20px #0008; }
+.mapstagecontrols button { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-right: 1px solid #624a31; background: transparent; color: #ffe09a; cursor: pointer; }
+.mapstagecontrols button:last-child { border: 0; border-left: 1px solid #624a31; }
+.mapstagecontrols button:hover, .mapstagecontrols button:focus-visible { background: #244965; }
+.mapstagecontrols svg { width: 15px; }
+.mapstagecontrols output { min-width: 55px; text-align: center; color: #e7dccd; font-size: 11px; }
+.dungeoncontrols { min-width: 0; background: linear-gradient(180deg, #0d1d2df5, #1d120df5); overflow: auto; max-height: 620px; scrollbar-color: #bd873c #071321; }
+.dungeoncontrols section { padding: 15px; border-bottom: 1px solid #493926; }
+.dungeoncontrols h4 { display: flex; align-items: center; gap: 7px; margin: 0 0 10px; color: #f1c65d; font: 600 12px system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.dungeoncontrols h4 svg { width: 15px; }
+.dungeoncontrols .mapviewtoggle { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.dungeoncontrols .mapviewtoggle button, .floorchips button { min-height: 38px; border: 1px solid #584a3d; background: #111c2a; color: #d8cdbc; padding: 7px; cursor: pointer; }
+.dungeoncontrols .mapviewtoggle button.active, .floorchips button.active { border-color: #f2c45a; background: linear-gradient(135deg, #1c4b72, #71351f); color: #fff4d8; box-shadow: inset 0 0 0 1px #f2c45a; }
+.coordinate-search { display: grid; grid-template-columns: 1fr 42px; border: 1px solid #6b553b; background: #071321; }
+.coordinate-search input, .locationindex > input { min-width: 0; width: 100%; border: 0; background: transparent; color: #fff1d6; padding: 10px; outline: 0; }
+.coordinate-search button { border: 0; border-left: 1px solid #6b553b; background: #173753; color: #ffe09a; cursor: pointer; }
+.coordinate-search svg { width: 16px; }
+.controlnote { margin: 8px 0 0; color: #aab8c4; font-size: 11px; line-height: 1.45; }
+.floorchips { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.floorchips button { display: flex; align-items: center; gap: 5px; text-align: left; }
+.floorchips i { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 7px currentColor; }
+.floorchips small { margin-left: auto; color: #b7c6d3; }
+.controlrange { display: grid; grid-template-columns: 1fr auto; gap: 8px; color: #d7c9b8; font-size: 12px; }
+.controlrange input { grid-column: 1 / -1; width: 100%; accent-color: #d59c3d; }
+.zcontrol { display: grid; grid-template-columns: 1fr 32px 44px 32px; align-items: center; gap: 5px; margin-top: 10px; color: #cfc1af; font-size: 12px; }
+.zcontrol button { height: 30px; border: 1px solid #675137; background: #142e45; color: #ffe09a; cursor: pointer; }
+.zcontrol output { text-align: center; }
+.controlcheck { display: flex; align-items: center; gap: 8px; margin: 7px 0; color: #d6c9b8; font-size: 12px; }
+.controlcheck input { accent-color: #d59c3d; }
+.locationindex > input { border: 1px solid #5d4b37; background: #071321; margin-bottom: 8px; }
+.locationindex > div { display: grid; gap: 5px; max-height: 220px; overflow: auto; }
+.locationindex button { display: grid; gap: 3px; border: 1px solid #493d32; background: #111a26; color: #eee3d3; padding: 9px; text-align: left; cursor: pointer; }
+.locationindex button:hover, .locationindex button:focus-visible { border-color: #e2ad4b; background: #1a3650; }
+.locationindex button small { color: #d1a951; }
+.locationindex button span { color: #91aabd; font-size: 10px; }
+.coordinate-marker circle { fill: #ffcf4d33; stroke: #ffe08a; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.coordinate-marker path { stroke: #fff0a9 !important; stroke-width: 2.5 !important; filter: drop-shadow(0 0 4px #ffbe35); }
+.light-map .dungeonstage { background-color: #d4c39f; background-image: linear-gradient(#4c382828 1px, transparent 1px), linear-gradient(90deg, #4c382828 1px, transparent 1px), radial-gradient(circle, #f0e4c8, #b59c70 80%); }
+.mapgesture { position: absolute; left: 12px; top: 12px; z-index: 3; border: 1px solid #5e7181; background: #071423e0; color: #d7e3eb; padding: 7px 9px; font-size: 9px; pointer-events: none; }
+.atlas-style .maptruth { max-width: 70%; line-height: 1.35; }
+.dungeoncontrols button:focus-visible, .dungeoncontrols input:focus-visible, .mapstagecontrols button:focus-visible { outline: 2px solid #ffe08a; outline-offset: 2px; }
+@media (max-width: 1000px) { .dungeonexplorer { grid-template-columns: 1fr; } .dungeonstage { height: 520px; border-right: 0; border-bottom: 1px solid #765033; } .dungeoncontrols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: none; } .dungeoncontrols .locationindex { grid-column: 1 / -1; } .dungeoncontrols section { border-right: 1px solid #493926; } }
+@media (max-width: 650px) { .dungeonmaphead { align-items: flex-start; } .dungeonmaphead > div:last-child { display: none; } .dungeonstage { height: 410px; } .dungeoncontrols { grid-template-columns: 1fr; } .dungeoncontrols .locationindex { grid-column: auto; } .atlas-style .maptruth { max-width: calc(100% - 24px); } .mapgesture { top: 58px; right: 12px; } .mapstagecontrols { left: 12px; right: auto; } }

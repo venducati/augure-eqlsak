@@ -27,6 +27,10 @@ For a version that needs no installation, open **outputs/EQLSaK-Offline-Advisor.
 
 `npm run build:site` writes a landing page and one static guide per catalog zone to `site/dist`. Deploy it to GitHub Pages, Netlify, Cloudflare Pages, or any static host. Then put the public address in `data/companion-site.json` (field `origin`) and rebuild the app: **Open zone guide** links then point at your site (`<origin>/zone/<zone-slug>`). While `origin` is empty — the shipped default — the link hides itself; everything else works identically offline.
 
+## The full companion website (website/)
+
+`website/` is the ported ChatGPT Sites edition of EQLSaK — the larger app with the loot atlas, dungeon dossiers, crafting guide, spell library, character lab, log tools and combat meter on one page. It was stripped of every hosting lock (vinext/RSC, `@openai/sites-vite-plugin`, wrangler/Cloudflare, `next/font`, `next/image`) and rebuilt as a standalone Vite SPA: `npm run website:build` writes a static folder to `website/dist/client` you can host anywhere; `npm run website:dev` serves it locally. It includes the 2026-09-10 branch's log finder and encounter journal (via the desktop fork's newer versions of those modules). See [website/PORT_NOTES.md](website/PORT_NOTES.md) for the exact conversions and caveats.
+
 ## What it does
 
 - Enter two or three classes and your goals. Rank third-class options and open a **See why** report with bullets, tradeoffs, sources, and a text download.
@@ -86,7 +90,7 @@ Start with [BUILD_ADVISOR.md](BUILD_ADVISOR.md). Class ratings, race profiles, w
 
 Fork this repository for your own version. Use a branch for each change and a pull request to propose changes here. Include what changed, why, sources for game claims, and checks performed. Commits, pull requests, tags, release notes and SHA-256 checksums make changes and downloads traceable. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The first public commit is a reviewed **1.6.1 starting snapshot** of the standalone product. It does not recreate private development history. Private gameplay notes, real player logs, personal settings, and deployment credentials are excluded. This repository contains the source needed for the downloadable Advisor and Meter; the larger site's map viewer and command center remain in the separate companion project. Zone-guide links require internet access, and the linked site's availability is separate from this offline app.
+The first public commit is a reviewed **1.6.1 starting snapshot** of the standalone product. It does not recreate private development history. Private gameplay notes, real player logs, personal settings, and deployment credentials are excluded. This repository now contains the downloadable Advisor and Meter **and** the ported companion website source under `website/` (its upstream git history stays in the Codex folder noted in [website/PORT_NOTES.md](website/PORT_NOTES.md)). Zone-guide links require whatever host you publish the site on; with no origin configured the links simply hide.
 
 ## License and independence
 

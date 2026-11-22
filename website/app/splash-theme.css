@@ -1,0 +1,326 @@
+:root {
+  --ink: #f4ead4;
+  --muted: #b8aa90;
+  --moss: #d5a446;
+  --amber: #efbd5b;
+  --line: #6a542e;
+  --eql-gold: #d8a43f;
+  --eql-gold-bright: #f2ca70;
+  --eql-bronze: #805b2a;
+  --eql-parchment: #d9bd86;
+  --eql-stone: #171714;
+  --eql-stone-light: #292720;
+  --eql-forest: #45502b;
+  --eql-blue: #607786;
+}
+
+body {
+  background-color: #080806;
+  background-image:
+    linear-gradient(180deg, #070706bf 0%, #11100db5 42%, #070706ef 100%),
+    radial-gradient(circle at 72% 16%, #c58b2e20 0 12%, transparent 42%),
+    url('/eqlsak-races-mural-v2.png');
+  background-size: cover, cover, cover;
+  background-position: center, center, center top;
+  color: var(--ink);
+}
+
+.topbar {
+  background: linear-gradient(180deg, #171612f2, #0a0a08ed) !important;
+  border-bottom-color: #c998426e;
+  box-shadow: 0 8px 28px #0009, inset 0 -1px #f1c76a1a;
+}
+
+.brandmark {
+  color: var(--eql-gold-bright) !important;
+  border-color: var(--eql-gold) !important;
+  background: radial-gradient(circle at 30% 25%, #72501f, #17140d 72%);
+  box-shadow: inset 0 0 0 2px #16130c, 0 0 18px #d79d3330;
+}
+
+.brand strong,
+h1,
+.cardhead h2,
+.atlashead h2,
+.detail h2,
+.loghero h2 {
+  color: #f6ead0;
+  text-shadow: 0 2px 12px #000;
+}
+
+h1 em,
+.eyebrow,
+.cardhead small,
+.profilebox > small,
+.recommend small,
+.result i,
+.recordgroup > header h3,
+.atlashead small,
+.loghero small,
+.logleaders > small {
+  color: var(--eql-gold-bright) !important;
+}
+
+.session {
+  color: var(--eql-gold-bright);
+  border-color: #a97833;
+  background: linear-gradient(180deg, #2b2417, #15120c);
+  box-shadow: inset 0 1px #f2d18b20;
+}
+
+.pulse {
+  background: var(--eql-gold-bright);
+  box-shadow: 0 0 12px #e8b550;
+}
+
+.rail {
+  background: linear-gradient(180deg, #15140ff0, #080907e8 62%, #151109e8);
+  border-right-color: #69552f;
+  box-shadow: inset -1px 0 #d5ac5730;
+}
+
+.rail button {
+  color: #b7aa91;
+  border: 1px solid transparent;
+}
+
+.rail button:hover {
+  color: #f1dfba;
+  border-color: #6c5731;
+  background: #2a251b;
+}
+
+.rail .navactive,
+.navactive {
+  color: #211708 !important;
+  border-color: #f0ca72 !important;
+  background: linear-gradient(135deg, #f0c66b, #a66b24) !important;
+  box-shadow: inset 0 1px #fff3bd88, 0 5px 18px #0008;
+}
+
+.profilebox {
+  border-top-color: #6a542e;
+}
+
+.profilebox .profileactive {
+  color: #f3e5c8;
+  background: linear-gradient(90deg, #33291a, #191713);
+  border-color: #796039;
+}
+
+.workspace {
+  background:
+    radial-gradient(circle at 74% 8%, #c58c2c12, transparent 34%),
+    linear-gradient(180deg, #0a0a0873, #0d0d0bd4 58%, #080806ed);
+}
+
+.search {
+  border-color: #a07839;
+  background: linear-gradient(180deg, #29261fef, #151410f5);
+  box-shadow: inset 0 1px #f4d99520, 0 20px 60px #0008;
+}
+
+.search:focus-within {
+  border-color: var(--eql-gold-bright);
+  box-shadow: inset 0 1px #fff1bd30, 0 0 0 3px #d79f3920, 0 20px 60px #0008;
+}
+
+.search svg,
+.search > button[type='submit'] {
+  color: var(--eql-gold-bright);
+}
+
+.searchfeedback {
+  color: #f1cc78;
+}
+
+.chips button,
+.zoomcontrols button,
+.logfile button {
+  border-color: #66522f;
+  background: linear-gradient(180deg, #29251c, #151410);
+  color: #d7c7a6;
+}
+
+.chips button:hover,
+.zoomcontrols button:hover,
+.logfile button:hover {
+  border-color: #c39443;
+  color: #ffe5a3;
+}
+
+.mapcard,
+.intelcard,
+.profileedit,
+.routebar,
+.atlasframe,
+.logdesk,
+.instance3d {
+  border-color: #725a31;
+  background: linear-gradient(145deg, #27251fed, #11110fed 72%) !important;
+  box-shadow: inset 0 1px #f4d99118, 0 22px 55px #0007;
+}
+
+.instancebar {
+  border-color: #725a31 !important;
+  background: linear-gradient(90deg, #30291c, #171611 58%, #252016) !important;
+}
+
+.viewerwrap {
+  background: #090806;
+}
+
+.viewertop > span,
+.viewertop button,
+.spawnpanel,
+.npcbrief {
+  border-color: #806538 !important;
+  background: linear-gradient(145deg, #28231aeF, #0d0d0bed) !important;
+  color: #ead9b1;
+}
+
+.spawnpanel > button {
+  border-color: #55472c;
+  background: linear-gradient(135deg, #2b2922, #181713);
+}
+
+.spawnpanel > button:hover,
+.spawnpanel > button.active {
+  border-color: #d4a447;
+  background: linear-gradient(135deg, #4a321d, #241914);
+  box-shadow: inset 3px 0 #d6a444;
+}
+
+.spawnpanel svg,
+.spawninfo > span,
+.npcbrief dt {
+  color: #efbd5b !important;
+}
+
+.maploading {
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(circle at center, #332718 0%, #090806 68%);
+  color: #f0ca72;
+}
+
+.cardhead,
+.atlashead,
+.loghero {
+  background: linear-gradient(90deg, #30291c, #171611 58%, #252016) !important;
+  border-bottom-color: #715a34;
+}
+
+.result,
+.provenance article,
+.linktrail,
+.command,
+.recommend {
+  background: linear-gradient(135deg, #2b2922, #181713);
+  border-color: #55472c;
+}
+
+.result:hover,
+.recordgroup .result:hover,
+.linktrail:hover {
+  border-color: #c59545;
+  background: linear-gradient(135deg, #3a3121, #201c15);
+  box-shadow: inset 3px 0 var(--eql-gold);
+}
+
+.recordgroup,
+.cardhead,
+.atlashead,
+.logsetup,
+.logfile,
+.logstats,
+.logevents > header,
+.event,
+.loglimits {
+  border-color: #57482d;
+}
+
+.badge.verified {
+  color: #d9efad;
+  border-color: #697a3e;
+  background: #2c351d;
+}
+
+.badge.eql {
+  color: #c6dce7;
+  border-color: #617887;
+  background: #25343d;
+}
+
+.badge.legacy {
+  color: #e4c997;
+  border-color: #856738;
+  background: #3a2d1d;
+}
+
+.mapcanvas path {
+  stroke: #9a7d45;
+}
+
+.mapcanvas circle {
+  fill: var(--eql-gold-bright);
+  stroke: #2a1d0b;
+}
+
+.mapcanvas .range,
+.atlashead p,
+.mapnode small {
+  color: #c2b18e;
+  fill: #b5a47f;
+}
+
+.mapnode > i {
+  border-color: #ffe4a0;
+  background: var(--eql-forest);
+}
+
+.mapnode span,
+.maplegend {
+  background: #17140ee8;
+  border-color: #9a7840;
+}
+
+.mapnode.city > i { background: var(--eql-gold); }
+.mapnode.dungeon > i { background: #8d3b2d; }
+.mapnode.travel > i { background: var(--eql-blue); }
+
+.detail,
+.logdrop,
+.logstats article,
+.logsearch,
+.logevents select {
+  background: linear-gradient(145deg, #29261f, #121210);
+  border-color: #735b32;
+}
+
+.overlay {
+  background: #050504d9;
+}
+
+.logpick {
+  border-color: #f0c76f;
+  background: linear-gradient(135deg, #edc264, #a96f26);
+  color: #251707;
+  box-shadow: inset 0 1px #fff3bd88, 0 7px 20px #0008;
+}
+
+.logsetup code {
+  border-color: #786039;
+  background: #1c1912;
+  color: #f1cb76;
+}
+
+.event.loot { background: #3b30195e; }
+.event.faction { background: #26331d66; }
+.event.chat { background: #1f2c3455; }
+
+@media (max-width: 700px) {
+  .workspace {
+    background: linear-gradient(180deg, #0c0b08c7, #080806ed);
+  }
+}

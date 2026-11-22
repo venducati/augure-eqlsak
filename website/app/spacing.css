@@ -1,0 +1,176 @@
+/* Shared reading rhythm. Scope these rules to content panels, not map labels,
+   overlays, or dense data rows; their positioning is intentional. */
+.site-skin {
+  --space-copy: 0.75rem;
+  --space-controls: 1rem;
+  --space-section: 1.5rem;
+}
+
+/* Grid children must shrink inside the available page width. */
+.site-skin .workspace,
+.site-skin .workspace > *,
+.site-skin .sourcecards > article,
+.site-skin .commanddirectory > header > div {
+  min-width: 0;
+}
+
+.site-skin :is(
+  .runplanner > header, .realmcopy, .labhero, .loghero, .dossierhead,
+  .lootcoverage, .classconfighead, .sourcefinder > header,
+  .commanddirectory > header
+) h2 {
+  margin-bottom: var(--space-copy);
+}
+
+.site-skin :is(.installscanner > header, .sourcecards, .labempty, .logdrop, .buildsnapshot) h3 {
+  margin-bottom: var(--space-copy);
+}
+
+.site-skin .atlasidentity {
+  row-gap: 0.5rem;
+}
+
+.site-skin .continenttabs {
+  min-width: 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr));
+}
+
+.site-skin .maptoolbar {
+  flex-wrap: wrap;
+  gap: var(--space-controls);
+  padding: var(--space-controls);
+}
+
+.site-skin .maptoolbar :is(label, select, .mapviewtoggle) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.site-skin .maptoolbar > div {
+  gap: 0.5rem;
+}
+
+/* Keep each module's title, explanation, and action visibly separate. */
+.site-skin .labmodules button {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-copy);
+  padding: 1.25rem;
+}
+
+.site-skin .labmodules button p {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.site-skin .labmodules button small {
+  width: 100%;
+  gap: var(--space-copy);
+}
+
+.site-skin .gearstats {
+  row-gap: var(--space-controls);
+}
+
+.site-skin .gearstats > div {
+  display: grid;
+  gap: var(--space-copy);
+}
+
+.site-skin .gearstats label {
+  gap: 0.5rem;
+}
+
+.site-skin .logdrop p {
+  margin: 0 0 var(--space-controls);
+  line-height: 1.6;
+}
+
+.site-skin .commandnote {
+  padding-top: var(--space-copy);
+  line-height: 1.6;
+}
+
+.site-skin .commandletters article {
+  gap: var(--space-copy);
+  padding: var(--space-controls);
+}
+
+.site-skin .commandletters > section > div {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
+}
+
+.site-skin .ba-party-highlights p + p {
+  margin-top: var(--space-copy);
+}
+
+.site-skin .ba-choice > .ba-note + button {
+  margin-top: var(--space-copy);
+}
+
+/* Preserve room between labels and controls without changing inline toggles. */
+.site-skin :is(.runplanner, .commandcontrols, .classconfighead) label {
+  row-gap: 0.5rem;
+  min-width: 0;
+}
+
+.site-skin :is(.commandcontrols, .formgrid) :is(input, select, pre) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 700px) {
+  .site-skin .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-skin .rail {
+    min-width: 0;
+  }
+
+  .site-skin .rail nav {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .site-skin .rail nav button {
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .site-skin .dossiergrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-skin .maptoolbar label {
+    width: 100%;
+  }
+
+  .site-skin .maptoolbar .mapviewtoggle {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .site-skin :is(.runplanner, .commanddirectory) > header {
+    flex-wrap: wrap;
+    gap: var(--space-controls);
+  }
+
+  .site-skin :is(.sourcefinder, .installscanner) > header {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-controls);
+  }
+
+  .site-skin .sourcecards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .site-skin .logdrop {
+    margin: var(--space-controls);
+    padding: var(--space-section) var(--space-controls);
+  }
+}
