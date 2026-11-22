@@ -40,4 +40,6 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist/client --project-name=eqlsak --branch=main
+          # NB: `uses:` steps ignore the job's defaults.working-directory,
+          # so the deploy dir must be repo-root-relative.
+          command: pages deploy website/dist/client --project-name=eqlsak --branch=main
