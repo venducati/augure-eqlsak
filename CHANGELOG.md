@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — 2026-11-22 (loot faceter)
+
+- **Faceted item finder (Loot tab).** New `LootFacets` explorer: filter by class (falls back to ALL-class items), equipment slot, desired +stats (AND semantics), measured-drops-only, quest-connected, and a text filter across names/mobs/zones. Deterministic and offline — filters run entirely on shipped data; no query ever leaves the browser.
+- **Full EQLWiki item catalog synced** (`npm run sync:items`, 11,439 {{Itempage}} records: slot, class lists, AC/DMG/+stats, flags, drop zones/mobs, quest links; CC BY-SA header, politeness-limited batch fetch). Join against the measured combat-log feed: **757/762** (99%) — the 5 gaps are enhancement/alt-name variants with no wiki page.
+- The catalog ships as a runtime-fetched asset (`/data/eqlwiki-items.json`, 6.3 MB, copied by the build step) rather than entering the JS bundle; graceful states for loading and offline.
+- New `lib/item-catalog.ts` (hardened loader, measured-overlay join, facet filter with evidence-first ranking) + 13 tests → website suite now **100 tests / 0 failures**; gates, typecheck, and build pass; verified live at eqlsak.pages.dev.
+- Honest-limitation banner retained: the wiki asserts drops it never measured; measured sightings remain separately badged.
+
 ## Unreleased — 2026-11-22
 
 - **CI deploy pipeline wired.** `.github/workflows/deploy-website.yml`: any push to `main` touching `website/` runs install → 87 tests → release gates → build, then deploys `website/dist/client` to Cloudflare Pages via `wrangler-action` with scoped account secrets. A red test or gate can no longer reach the live site; the last known-good deploy stays published. Proven end-to-end with three production deploys on 2026-11-22.
