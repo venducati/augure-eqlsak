@@ -13,7 +13,8 @@ const assetDirs=readdirSync(join('dist/client','assets'));
 if(!assetDirs.some((n)=>/\.js$/.test(n)))throw new Error('dist/client/assets contains no JavaScript bundle');
 cpSync('public', 'dist/client', { recursive: true, force: true });
 writeSpellIconManifest('dist/client');
-// SPA hosts should serve index.html for unknown paths; copy it so the site works
-// on hosts without rewrite rules configured too.
-if(existsSync('dist/client/index.html'))cpSync('dist/client/index.html','dist/client/404.html');
+// SPA fallback is handled by public/_redirects ("/* /index.html 200") at the
+// host. Do NOT copy index.html to 404.html here: on Cloudflare Pages a static
+// 404.html takes precedence over _redirects and shadows the wildcard rule,
+// breaking deep links (verified live 2026-11-22).
 console.log('Compiled current EQLSaK sources into dist/client (standalone static site).');
